@@ -1231,3 +1231,161 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+/* PROFILE SETTING  */
+section.demo-container {
+    background-color: #ffffff;
+    display: block;
+    margin: 50px auto;
+    min-width: 300px;
+    max-width: 500px;
+    padding: 20px;
+}
+h1 {
+    border-bottom: 1px solid #d8ecf3;
+    padding-bottom: 17px;
+    font-family: "Open Sans", sans-serif;
+    font-size: larger;
+    font-weight: 1000;
+}
+.muted {
+    color: #bbbbbb;
+}
+.muted a {
+    color: #ffb6ae;
+    text-decoration: none;
+}
+.visible {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 30px;
+}
+.kitty-switch {
+    width: auto;
+    display: block;
+    position: relative;
+    margin: 30px 0px 20px 0px;
+}
+.kitty-switch .prompt {
+    display: inline-block;
+    margin-top: 10px;
+}
+.kitty-switch .well {
+    background: white;
+    height: 20px;
+    width: 65px;
+    position: absolute;
+    right: 50px;
+    top: 7px;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid #1cc0f6;
+    cursor: pointer;
+}
+.kitty-switch #toggle {
+    opacity: 0;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    height: 29px;
+    width: 140px;
+    background: transparent;
+    position: absolute;
+    right: 0px;
+    top: 3px;
+    cursor: pointer;
+    z-index: 100;
+    color: tranparent;
+}
+.kitty-switch #toggle:after {
+    content: '';
+    background-color: transparent;
+    height: 40px;
+    width: 80px;
+    position: absolute;
+    left: 30px;
+    top: -5px;
+}
+.kitty-switch #toggle ~ div.kitty:before {
+    content: "\01F431";
+    position: absolute;
+    right: 80px;
+    top: -10px;
+    font-size: 45px;
+    z-index: 1;
+    color: #000000;
+    -moz-transition: all 0.25s ease-out;
+    -webkit-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+.kitty-switch #toggle:checked {
+    right: 0px;
+}
+.kitty-switch #toggle:checked:after {
+    left: -80px;
+}
+.kitty-switch #toggle:checked ~ div.kitty:before {
+    content: '\01F63A';
+    top: -10px;
+    right: 41px;
+}
+.kitty-switch #toggle:checked ~ div.visible {
+    opacity: 1;
+    max-height: 900px;
+    overflow: visible;
+}
+.kitty-switch #toggle ~ label:before {
+    content: "No";
+    position: absolute;
+    color: #53adcb;
+    left: -30px;
+    top: 0px;
+    font-size: 16px;
+}
+.kitty-switch #toggle ~ label:after {
+    content: "Yes";
+    position: absolute;
+    color: #bbbbbb;
+    left: 83px;
+    top: 0px;
+    font-size: 16px;
+}
+.kitty-switch #toggle:checked ~ label:before {
+    color: #bbbbbb;
+}
+.kitty-switch #toggle:checked ~ label:after {
+    color: #53adcb;
+}
+
+.confirm-button {
+  background-color: #0077cc; /* Màu xanh biển */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  width: 150px;
+  cursor: pointer;
+  margin-left: 25px;
+}
+
+.confirm-button:hover {
+  background-color: #005ea6; /* Màu xanh biển tối hơn khi hover */
+}
+
+.email-input {
+  width: 250px; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  font-size: 16px; 
+  margin-bottom: 10px; 
+}
+
+.hidden {
+  display: none;
+}
