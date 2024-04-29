@@ -328,4 +328,31 @@
     }, 200);
   }
 
+
+  // EMAIL NOTIFY
+  document.addEventListener("DOMContentLoaded", function() {
+    // Lấy phần tử toggle
+    var toggle = document.getElementById("toggle");
+    
+    // Lấy phần tử visible
+    var visible = document.querySelector(".visible");
+    
+    // Lấy phần tử confirm button
+    var confirmButton = document.querySelector(".confirm-button");
+    
+    // Thêm sự kiện click cho nút Confirm
+    confirmButton.addEventListener("click", function() {
+        visible.classList.add("hidden");
+    });
+    
+    // Thêm sự kiện change cho toggle
+    toggle.addEventListener("change", function() {
+        if (toggle.checked) {
+            visible.classList.remove("hidden");
+        } else {
+            visible.classList.add("hidden");
+        }
+    });
+});
+
 })();
