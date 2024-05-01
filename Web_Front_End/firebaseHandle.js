@@ -1,5 +1,5 @@
 const { initializeApp } = require("firebase/app");
-const { getDatabase, set, ref } = require ("firebase/database");
+const { getDatabase, set, child, ref, get } = require ("firebase/database");
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -29,7 +29,19 @@ function writeData({temperature, humidity, dust, ppm}) {
   });
 }
 
+async function readData() {
+  try {
+    // Lấy dữ liệu từ Firebase
+    const snapshot = await get(ref(database, 'data/'));
+    return snapshot;
+  } catch (error) {
+    console.error('Error getting data from Firebase:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   database: database,
-  writeData: writeData
+  writeData: writeData,
+  readData:readData
 }
