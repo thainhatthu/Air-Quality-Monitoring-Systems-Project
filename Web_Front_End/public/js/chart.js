@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const chart = new ApexCharts(document.querySelector("#reportsChart1"), {
       series: [{
         name: 'PM 2.5',
-        data: [12, 33, 22, 115, 12, 34, 42, 11, 33, 22, 45, 12, 34] //truyền data PM2.5
+        data: [] //truyền data PM2.5
       }, {
         name: 'MQ135',
-        data: [ 22, 45, 12, 34, 42, 11, 33, 22, 45, 12, 34, 42,12] //truyền data MQ135
+        data: [] //truyền data MQ135
       }],
       chart: {
         height: 350,
@@ -67,10 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const startDate = new Date(endDate.getTime() - (24 * 60 * 60 * 1000)); 
 
   // Tạo mảng chứa timestamp cho mỗi giờ trong 24 giờ trước đó
-  const timestamps = [];
-  for (let hour = startDate.getTime(); hour <= endDate.getTime(); hour += (60 * 60 * 1000)) {
-    timestamps.push(hour);
-  }
+// Tạo mảng chứa timestamp cho mỗi giờ trong 24 giờ trước đó
+    const timestamps = [];
+    for (let hour = 0; hour < 24; hour++) {
+      const timestamp = new Date(startDate);
+      timestamp.setHours(hour, 0, 0, 0); // Đặt phút và giây là 0
+      timestamps.push(timestamp.getTime());
+    }
 
   // Thực hiện thay đổi trục hoành để hiển thị dữ liệu trong 24 giờ trước đó
   chart.updateOptions({
