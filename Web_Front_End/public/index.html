@@ -428,32 +428,45 @@
                     <div id="radialBarChart2"></div>
                     <!-- Script for rendering Radial Bar Chart 2 -->
                     <script>
-                      document.addEventListener("DOMContentLoaded", () => {
-                        new ApexCharts(document.querySelector("#radialBarChart2"), {
-                          series: [25],
-                          chart: {
-                            height: 250,
-                            type: 'radialBar',
-                            toolbar: { show: true }
-                          },
-                          plotOptions: {
-                            radialBar: {
-                              dataLabels: {
-                                name: { fontSize: '22px' },
-                                value: { fontSize: '16px' },
-                                total: {
-                                  show: true,
-                                  label: 'Total',
-                                  formatter: function(w) {
-                                    return 239;
+                      document.addEventListener("DOMContentLoaded", async () => {
+                        try {
+                          // Gửi yêu cầu lấy dữ liệu từ server
+                          const response = await fetch('/api/data');
+                          if (!response.ok) {
+                            throw new Error('Error fetching data');
+                          }
+                          const data = await response.json(); // Chuyển đổi dữ liệu nhận được thành JSON
+                          const ppm = data.data.ppm;
+                          
+                          // Khởi tạo biểu đồ với dữ liệu mới
+                          new ApexCharts(document.querySelector("#radialBarChart2"), {
+                            series: [ppm], 
+                            chart: {
+                              height: 250,
+                              type: 'radialBar',
+                              toolbar: { show: true }
+                            },
+                            plotOptions: {
+                              radialBar: {
+                                dataLabels: {
+                                  name: { fontSize: '22px' },
+                                  value: { fontSize: '16px' },
+                                  total: {
+                                    show: true,
+                                    label: 'Total',
+                                    formatter: function(w) {
+                                      return ppm; 
+                                    }
                                   }
                                 }
                               }
-                            }
-                          },
-                          labels: ['Pears'],
-                          colors: ['#8B322C']
-                        }).render();
+                            },
+                            labels: ['Pears'],
+                            colors: ['#8B322C']
+                          }).render();
+                        } catch (error) {
+                          console.error('Error:', error);
+                        }
                       });
                     </script>
                   </div>
@@ -505,32 +518,45 @@
                     <div id="radialBarChart4"></div>
                     <!-- Script for rendering Radial Bar Chart 4 -->
                     <script>
-                      document.addEventListener("DOMContentLoaded", () => {
-                        new ApexCharts(document.querySelector("#radialBarChart4"), {
-                          series: [56],
-                          chart: {
-                            height: 250,
-                            type: 'radialBar',
-                            toolbar: { show: true }
-                          },
-                          plotOptions: {
-                            radialBar: {
-                              dataLabels: {
-                                name: { fontSize: '22px' },
-                                value: { fontSize: '16px' },
-                                total: {
-                                  show: true,
-                                  label: 'Total',
-                                  formatter: function(w) {
-                                    return 278;
+                      document.addEventListener("DOMContentLoaded", async () => {
+                        try {
+                          // Gửi yêu cầu lấy dữ liệu từ server
+                          const response = await fetch('/api/data');
+                          if (!response.ok) {
+                            throw new Error('Error fetching data');
+                          }
+                          const data = await response.json(); // Chuyển đổi dữ liệu nhận được thành JSON
+                          const humidity = data.data.humidity; // Lấy giá trị độ ẩm từ dữ liệu nhận được
+                          
+                          // Khởi tạo biểu đồ với dữ liệu mới
+                          new ApexCharts(document.querySelector("#radialBarChart4"), {
+                            series: [humidity], // Sử dụng giá trị độ ẩm thực tế
+                            chart: {
+                              height: 250,
+                              type: 'radialBar',
+                              toolbar: { show: true }
+                            },
+                            plotOptions: {
+                              radialBar: {
+                                dataLabels: {
+                                  name: { fontSize: '22px' },
+                                  value: { fontSize: '16px' },
+                                  total: {
+                                    show: true,
+                                    label: 'Total',
+                                    formatter: function(w) {
+                                      return humidity; // Hiển thị giá trị độ ẩm
+                                    }
                                   }
                                 }
                               }
-                            }
-                          },
-                          labels: ['Humidity'],
-                          colors: ['#10439F']
-                        }).render();
+                            },
+                            labels: ['Humidity'],
+                            colors: ['#10439F']
+                          }).render();
+                        } catch (error) {
+                          console.error('Error:', error);
+                        }
                       });
                     </script>
                   </div>
