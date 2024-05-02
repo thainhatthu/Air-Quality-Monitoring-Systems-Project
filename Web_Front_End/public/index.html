@@ -343,46 +343,79 @@
                     <h5 class="card-title">PM 2.5</h5>
                     <div id="radialBarChart1"></div>
                     <!-- Script for rendering Radial Bar Chart 1 -->
-                    <script>
-                      document.addEventListener("DOMContentLoaded", async () => {
-                        try {
-                          // Gửi yêu cầu lấy dữ liệu từ server
-                          const response = await fetch('/api/data');
-                          if (!response.ok) {
-                            throw new Error('Error fetching data');
-                          }
-                          const data = await response.json(); // Chuyển đổi dữ liệu nhận được thành JSON
-                          const dust = data.data.dust;
-                          
-                          // Khởi tạo biểu đồ với dữ liệu mới
-                          new ApexCharts(document.querySelector("#radialBarChart1"), {
-                            series: [dust], 
-                            chart: {
-                              height: 250,
-                              type: 'radialBar',
-                              toolbar: { show: true }
-                            },
-                            plotOptions: {
-                              radialBar: {
-                                dataLabels: {
-                                  name: { fontSize: '22px' },
-                                  value: { fontSize: '16px' },
-                                  total: {
-                                    show: true,
-                                    label: 'Total',
-                                    formatter: function(w) {
-                                      return dust; 
-                                    }
+                    <script type = "module">
+                      import {app, onValueData} from './js/firebaseConfig.js';
+                      console.log(app)
+                      document.addEventListener("DOMContentLoaded", () => {
+
+                        const chart = new ApexCharts(document.querySelector("#radialBarChart1"), {
+                          series: [0],
+                          chart: {
+                            height: 250,
+                            type: 'radialBar',
+                            toolbar: { show: true },
+                            // events:{
+                            //   click: function(chart, w, e) {
+                            //     console.log("============")
+                            //     console.log(chart)
+                            //     console.log("============")
+                            //     console.log(w)
+                            //     console.log("============")
+                            //     console.log(e)
+                            //   },
+                            // },
+                            animations: {
+                              enabled: true,
+                              easing: "easeinout",
+                              speed: 800,
+                              dynamicAnimation: {
+                                enabled: true,
+                                speed: 350,
+                              }
+                              
+                            }
+                          },
+                          plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'Total',
+                                  formatter: function(w) {
+                                    return 0;
                                   }
                                 }
                               }
-                            },
-                            labels: ['Apples'],
-                            colors: ['#FF0000']
-                          }).render();
-                        } catch (error) {
-                          console.error('Error:', error);
-                        }
+                            }
+                          },
+                          labels: ['Apples'],
+                          colors: ['#FF0000']
+                        });
+                        chart.render();
+                        onValueData((data) => {
+                          const pm = data[Object.keys(data)[Object.keys(data).length - 1]].dust;
+                          
+                          chart.updateOptions({
+                            series: [pm*100], //Cái dust hình như chỉ từ 0 tới 1 thôi
+                            plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'Total',
+                                  formatter: function(w) {
+                                    return pm;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          });
+                        })
                       });
                     </script>
                   </div>
