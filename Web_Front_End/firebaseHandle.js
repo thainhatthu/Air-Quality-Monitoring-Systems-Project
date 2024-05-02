@@ -1,5 +1,6 @@
 const { initializeApp } = require("firebase/app");
-const { getDatabase, set, ref } = require ("firebase/database");
+const { getDatabase, update, set,get, ref, query, equalTo } = require ("firebase/database");
+
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -19,17 +20,39 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 //Real-time database
-const database = getDatabase();
-function writeData({temperature, humidity, dust, ppm}) {
-  set(ref(database, 'data/'), {
-    temperature: temperature,
-    humidity: humidity,
-    dust: dust,
-    ppm: ppm,
-  });
+const database = getDatabase(app);
+function writeData(data, user_id) {//{temperature, humidity, dust, ppm}
+  const db = getDatabase();
+  const updates = {};
+  const time = new Date(new Date().getTime());
+  updates[`/data/${user_id}/`+time] = data;
+  return update(ref(db), updates);
+  // const refData = ref(database, 'data/');
+
+  // set(ref(database, 'data/'), {
+  //   temperature: temperature,
+  //   humidity: humidity,
+  //   dust: dust,
+  //   ppm: ppm,
+  // });
+}
+
+const checkUser = async(user_id)=>{
+  const db = getDatabase();
+  const userRef =  ref(db,`users/${user_id}`); 
+  const snapshot = await get(userRef)
+  
+  if (snapshot.exists()) {
+    console.log(snapshot.val());
+    return snapshot.val();
+  } else {
+    console.log("No data available");
+    return false;
+  }
 }
 
 module.exports = {
   database: database,
-  writeData: writeData
+  writeData: writeData,
+  checkUser: checkUser
 }

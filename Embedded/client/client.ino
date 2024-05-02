@@ -27,12 +27,12 @@ struct dhtData{
   float humidity;
 };
 //DUST
-int voPin = 4;
-int ledPin = 5;
+int voPin = 34;
+int ledPin = 32;
 float dustDensity = 0;
 SharpGP2Y10 dustSensor(voPin, ledPin);
 //MQ135
-#define PIN_MQ135 4
+#define PIN_MQ135 35
 MQ135 mq135_sensor = MQ135(PIN_MQ135);
 //
 void setup() {
@@ -65,9 +65,9 @@ void loop() {
       // Your Domain name with URL path or IP address with path
       http.begin(client, serverName);
 
-      // Specify content-type header
+      //Set header
       http.addHeader("Content-Type", "application/json");
-
+      http.addHeader("user_id", "215226482152149021522077");
       // Data to send with HTTP POST
       DynamicJsonDocument doc(1024);
       String httpRequestData;
