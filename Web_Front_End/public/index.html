@@ -343,14 +343,37 @@
                     <h5 class="card-title">PM 2.5</h5>
                     <div id="radialBarChart1"></div>
                     <!-- Script for rendering Radial Bar Chart 1 -->
-                    <script>
+                    <script type = "module">
+                      import {app, onValueData} from './js/firebaseConfig.js';
+                      console.log(app)
                       document.addEventListener("DOMContentLoaded", () => {
-                        new ApexCharts(document.querySelector("#radialBarChart1"), {
-                          series: [44],
+
+                        const chart = new ApexCharts(document.querySelector("#radialBarChart1"), {
+                          series: [0],
                           chart: {
                             height: 250,
                             type: 'radialBar',
-                            toolbar: { show: true }
+                            toolbar: { show: true },
+                            // events:{
+                            //   click: function(chart, w, e) {
+                            //     console.log("============")
+                            //     console.log(chart)
+                            //     console.log("============")
+                            //     console.log(w)
+                            //     console.log("============")
+                            //     console.log(e)
+                            //   },
+                            // },
+                            animations: {
+                              enabled: true,
+                              easing: "easeinout",
+                              speed: 800,
+                              dynamicAnimation: {
+                                enabled: true,
+                                speed: 350,
+                              }
+                              
+                            }
                           },
                           plotOptions: {
                             radialBar: {
@@ -361,7 +384,7 @@
                                   show: true,
                                   label: 'Total',
                                   formatter: function(w) {
-                                    return 249;
+                                    return 0;
                                   }
                                 }
                               }
@@ -369,7 +392,30 @@
                           },
                           labels: ['Apples'],
                           colors: ['#FF0000']
-                        }).render();
+                        });
+                        chart.render();
+                        onValueData((data) => {
+                          const pm = data[Object.keys(data)[Object.keys(data).length - 1]].dust;
+                          
+                          chart.updateOptions({
+                            series: [pm*100], //Cái dust hình như chỉ từ 0 tới 1 thôi
+                            plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'Total',
+                                  formatter: function(w) {
+                                    return pm;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          });
+                        })
                       });
                     </script>
                   </div>
