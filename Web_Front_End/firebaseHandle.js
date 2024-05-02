@@ -50,6 +50,7 @@ const checkUser = async(user_id)=>{
     return false;
   }
 }
+
 module.exports = {
   database: database,
   writeData: writeData,
