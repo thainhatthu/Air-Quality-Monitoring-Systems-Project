@@ -1,6 +1,7 @@
 const { initializeApp } = require("firebase/app");
 const { getDatabase, update, set,get, ref, query, equalTo } = require ("firebase/database");
 
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 

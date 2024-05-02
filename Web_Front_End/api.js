@@ -6,6 +6,7 @@ Number.prototype.round = function(p) {
   return parseFloat( this.toFixed(p) );
 };
 
+
 module.exports =(app)=>{
   
   app.post('/api/data', deviceAuth, async(req,res)=>{
@@ -33,8 +34,30 @@ module.exports =(app)=>{
       data: data
     });
   });
-  app.get('/api/data', async(req, res)=>{
-    await writeUserData('Hello');
-    res.status(200).send('Data written to database');
-  })
+
+  app.get('/api/data', async (req, res) => {
+    try {
+      // Đọc dữ liệu từ Firebase
+      const snapshot = await firebaseHandler.readData();
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        res.status(200).json({
+          status: 'success',
+          data: data
+        });
+      } else {
+        res.status(404).json({
+          status: 'error',
+          message: 'No data available'
+        });
+      }
+    } catch (error) {
+      console.error('Error getting data from Firebase:', error);
+      res.status(500).json({
+        status: 'error',
+        message: 'Internal server error'
+      });
+    }
+});
+  
 }
