@@ -307,34 +307,45 @@
 
             <!-- Customers Card -->
             <div class="col-xxl-4 col-xl-12">
-
               <div class="card info-card customers-card">
-
                 <div class="filter">
                   <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                   
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"> 
                   </ul>
                 </div>
-
                 <div class="card-body">
                   <h5 class="card-title">Weather <span>|</span></h5>
-
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-cloud-rain"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>35 °C </h6>
+                      <h6 id="temperature1">35 °C </h6>
                       <span class="text-muted small pt-2 ps-1">It's hot today</span>
-
                     </div>
                   </div>
-
                 </div>
               </div>
+            </div>
 
-            </div><!-- End Customers Card -->
+            <script type="module">
+              // Import hàm từ tệp firebaseConfig.js
+              import {app, onValueData} from './js/firebaseConfig.js';
+              
+              document.addEventListener("DOMContentLoaded", () => {
+                  // Khi trang được tải, lắng nghe sự kiện cập nhật dữ liệu từ Firebase
+                  onValueData((data) => {
+                      // Lấy giá trị nhiệt độ mới nhất từ dữ liệu Firebase
+                      const temperature = data[Object.keys(data)[Object.keys(data).length - 1]].temperature;
+                      // Cập nhật giá trị nhiệt độ vào phần tử HTML
+                      document.getElementById('temperature1').innerText = temperature + '°C';
+                  });
+              });
+            </script>
+
+            <!-- End Customers Card -->
+
+            
             
             <div class="row">
               <div class="col-lg-6">
@@ -347,32 +358,19 @@
                       import {app, onValueData} from './js/firebaseConfig.js';
                       console.log(app)
                       document.addEventListener("DOMContentLoaded", () => {
-
                         const chart = new ApexCharts(document.querySelector("#radialBarChart1"), {
                           series: [0],
                           chart: {
                             height: 250,
                             type: 'radialBar',
                             toolbar: { show: true },
-                            // events:{
-                            //   click: function(chart, w, e) {
-                            //     console.log("============")
-                            //     console.log(chart)
-                            //     console.log("============")
-                            //     console.log(w)
-                            //     console.log("============")
-                            //     console.log(e)
-                            //   },
-                            // },
                             animations: {
                               enabled: true,
                               easing: "easeinout",
-                              speed: 800,
                               dynamicAnimation: {
                                 enabled: true,
-                                speed: 350,
+                                speed: 1000,
                               }
-                              
                             }
                           },
                           plotOptions: {
@@ -395,10 +393,9 @@
                         });
                         chart.render();
                         onValueData((data) => {
-                          const pm = data[Object.keys(data)[Object.keys(data).length - 1]].dust;
-                          
+                          const dust = data[Object.keys(data)[Object.keys(data).length - 1]].dust;
                           chart.updateOptions({
-                            series: [pm*100], //Cái dust hình như chỉ từ 0 tới 1 thôi
+                            series: [dust*100], //Cái dust hình như chỉ từ 0 tới 1 thôi
                             plotOptions: {
                             radialBar: {
                               dataLabels: {
@@ -408,7 +405,7 @@
                                   show: true,
                                   label: 'Total',
                                   formatter: function(w) {
-                                    return pm;
+                                    return dust;
                                   }
                                 }
                               }
@@ -427,46 +424,65 @@
                     <h5 class="card-title">MQ135</h5>
                     <div id="radialBarChart2"></div>
                     <!-- Script for rendering Radial Bar Chart 2 -->
-                    <script>
-                      document.addEventListener("DOMContentLoaded", async () => {
-                        try {
-                          // Gửi yêu cầu lấy dữ liệu từ server
-                          const response = await fetch('/api/data');
-                          if (!response.ok) {
-                            throw new Error('Error fetching data');
-                          }
-                          const data = await response.json(); // Chuyển đổi dữ liệu nhận được thành JSON
-                          const ppm = data.data.ppm;
-                          
-                          // Khởi tạo biểu đồ với dữ liệu mới
-                          new ApexCharts(document.querySelector("#radialBarChart2"), {
-                            series: [ppm], 
-                            chart: {
-                              height: 250,
-                              type: 'radialBar',
-                              toolbar: { show: true }
-                            },
-                            plotOptions: {
-                              radialBar: {
-                                dataLabels: {
-                                  name: { fontSize: '22px' },
-                                  value: { fontSize: '16px' },
-                                  total: {
-                                    show: true,
-                                    label: 'Total',
-                                    formatter: function(w) {
-                                      return ppm; 
-                                    }
+                    <script type = "module">
+                      import {app, onValueData} from './js/firebaseConfig.js';
+                      console.log(app)
+                      document.addEventListener("DOMContentLoaded", () => {
+                        const chart = new ApexCharts(document.querySelector("#radialBarChart2"), {
+                          series: [0],
+                          chart: {
+                            height: 250,
+                            type: 'radialBar',
+                            toolbar: { show: true },
+                            animations: {
+                              enabled: true,
+                              easing: "easeinout",
+                              dynamicAnimation: {
+                                enabled: true,
+                                speed: 1000,
+                              }
+                            }
+                          },
+                          plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'Total',
+                                  formatter: function(w) {
+                                    return 0;
                                   }
                                 }
                               }
-                            },
-                            labels: ['Pears'],
-                            colors: ['#8B322C']
-                          }).render();
-                        } catch (error) {
-                          console.error('Error:', error);
-                        }
+                            }
+                          },
+                          labels: ['Pears'],
+                          colors: ['#8B322C']
+                        });
+                        chart.render();
+                        onValueData((data) => {
+                          const ppm = data[Object.keys(data)[Object.keys(data).length - 1]].ppm;
+                          chart.updateOptions({
+                            series: [ppm],
+                            plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'Total',
+                                  formatter: function(w) {
+                                    return ppm;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          });
+                        })
                       });
                     </script>
                   </div>
@@ -517,46 +533,65 @@
                     <h5 class="card-title">Humidity</h5>
                     <div id="radialBarChart4"></div>
                     <!-- Script for rendering Radial Bar Chart 4 -->
-                    <script>
-                      document.addEventListener("DOMContentLoaded", async () => {
-                        try {
-                          // Gửi yêu cầu lấy dữ liệu từ server
-                          const response = await fetch('/api/data');
-                          if (!response.ok) {
-                            throw new Error('Error fetching data');
-                          }
-                          const data = await response.json(); // Chuyển đổi dữ liệu nhận được thành JSON
-                          const humidity = data.data.humidity; // Lấy giá trị độ ẩm từ dữ liệu nhận được
-                          
-                          // Khởi tạo biểu đồ với dữ liệu mới
-                          new ApexCharts(document.querySelector("#radialBarChart4"), {
-                            series: [humidity], // Sử dụng giá trị độ ẩm thực tế
-                            chart: {
-                              height: 250,
-                              type: 'radialBar',
-                              toolbar: { show: true }
-                            },
-                            plotOptions: {
-                              radialBar: {
-                                dataLabels: {
-                                  name: { fontSize: '22px' },
-                                  value: { fontSize: '16px' },
-                                  total: {
-                                    show: true,
-                                    label: 'Total',
-                                    formatter: function(w) {
-                                      return humidity; // Hiển thị giá trị độ ẩm
-                                    }
+                    <script type = "module">
+                      import {app, onValueData} from './js/firebaseConfig.js';
+                      console.log(app)
+                      document.addEventListener("DOMContentLoaded", () => {
+                        const chart = new ApexCharts(document.querySelector("#radialBarChart4"), {
+                          series: [0],
+                          chart: {
+                            height: 250,
+                            type: 'radialBar',
+                            toolbar: { show: true },
+                            animations: {
+                              enabled: true,
+                              easing: "easeinout",
+                              dynamicAnimation: {
+                                enabled: true,
+                                speed: 1000,
+                              }
+                            }
+                          },
+                          plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'Total',
+                                  formatter: function(w) {
+                                    return 0;
                                   }
                                 }
                               }
-                            },
-                            labels: ['Humidity'],
-                            colors: ['#10439F']
-                          }).render();
-                        } catch (error) {
-                          console.error('Error:', error);
-                        }
+                            }
+                          },
+                          labels: ['Humidity'],
+                          colors: ['#10439F']
+                        });
+                        chart.render();
+                        onValueData((data) => {
+                          const humidity = data[Object.keys(data)[Object.keys(data).length - 1]].humidity;
+                          chart.updateOptions({
+                            series: [humidity],
+                            plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'Total',
+                                  formatter: function(w) {
+                                    return humidity;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          });
+                        })
                       });
                     </script>
                   </div>
