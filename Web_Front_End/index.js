@@ -7,7 +7,7 @@ const firebase = require('./firebaseHandle');
 // Sử dụng các middleware
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
-
+app.use(express.static(`${__dirname}/public`));
 // Sử dụng endpoint "/api" để xử lý các yêu cầu API
 apiHandle(app);
 

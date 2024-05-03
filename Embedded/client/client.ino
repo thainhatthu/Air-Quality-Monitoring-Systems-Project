@@ -7,11 +7,14 @@
 #include <DHT.h>
 // #include "SharpGP2Y10.h"
 
-const char* ssid = "UiTiOt-E3.1";
-const char* password = "UiTiOtAP";
+// const char* ssid = "UiTiOt-E3.1";
+// const char* password = "UiTiOtAP";
 
+const char* ssid = "wifi";
+const char* password = "12345678";
 
-const char* serverName = "http://172.20.73.130/api/data";
+// const char* serverName = "http://172.20.73.130/api/data";
+const char* serverName = "http://172.31.10.41/api/data";
 
 unsigned long lastTime = 0;
 
