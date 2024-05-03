@@ -1389,3 +1389,20 @@ h1 {
 .hidden {
   display: none;
 }
+
+.activite-labels {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.activite-label1 {
+  top: 300px;
+  position: absolute;
+  margin-left: 20px; 
+}
+
+.activite-label2 {
+  margin-left: 410px; 
+  top: 300px;
+  position: absolute;
+}
