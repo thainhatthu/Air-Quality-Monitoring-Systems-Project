@@ -14,7 +14,6 @@ apiHandle(app);
 // Xử lý yêu cầu trang Dashboard
 app.get("/Dashboard", async (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
-      res.sendFile(path.join(__dirname, "public", "index.html"), { data });
 });
 
 app.get("/Profile", (req, res) => {
