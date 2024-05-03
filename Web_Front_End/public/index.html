@@ -318,7 +318,8 @@
                   // Khi trang được tải, lắng nghe sự kiện cập nhật dữ liệu từ Firebase
                   onValueData((data) => {
                       // Lấy giá trị nhiệt độ mới nhất từ dữ liệu Firebase
-                      const temperature = data[Object.keys(data)[Object.keys(data).length - 1]].temperature;
+                      // const temperature = data[Object.keys(data)[Object.keys(data).length - 1]].temperature;
+                      const temperature = data.temperature;
                       // Cập nhật giá trị nhiệt độ vào phần tử HTML
                       document.getElementById('temperature1').innerText = temperature + '°C';
                   });
@@ -336,7 +337,6 @@
                     <!-- Script for rendering Radial Bar Chart 1 -->
                     <script type = "module">
                       import {app, onValueData} from './js/firebaseConfig.js';
-                      console.log(app)
                       document.addEventListener("DOMContentLoaded", () => {
                         const chart = new ApexCharts(document.querySelector("#radialBarChart1"), {
                           series: [0],
@@ -372,7 +372,8 @@
                         });
                         chart.render();
                         onValueData((data) => {
-                          const dust = data[Object.keys(data)[Object.keys(data).length - 1]].dust;
+                          // const dust = data[Object.keys(data)[Object.keys(data).length - 1]].dust;
+                          const dust = data.dust;
                           chart.updateOptions({
                             series: [dust*100], 
                             plotOptions: {
@@ -405,7 +406,6 @@
                     <!-- Script for rendering Radial Bar Chart 2 -->
                     <script type = "module">
                       import {app, onValueData} from './js/firebaseConfig.js';
-                      console.log(app)
                       document.addEventListener("DOMContentLoaded", () => {
                         const chart = new ApexCharts(document.querySelector("#radialBarChart2"), {
                           series: [0],
@@ -441,7 +441,8 @@
                         });
                         chart.render();
                         onValueData((data) => {
-                          const ppm = data[Object.keys(data)[Object.keys(data).length - 1]].ppm;
+                          //const ppm = data[Object.keys(data)[Object.keys(data).length - 1]].ppm;
+                          const ppm = data.ppm;
                           chart.updateOptions({
                             series: [ppm/10],
                             plotOptions: {
@@ -512,7 +513,6 @@
                     <!-- Script for rendering Radial Bar Chart 4 -->
                     <script type = "module">
                       import {app, onValueData} from './js/firebaseConfig.js';
-                      console.log(app)
                       document.addEventListener("DOMContentLoaded", () => {
                         const chart = new ApexCharts(document.querySelector("#radialBarChart4"), {
                           series: [0],
@@ -548,7 +548,8 @@
                         });
                         chart.render();
                         onValueData((data) => {
-                          const humidity = data[Object.keys(data)[Object.keys(data).length - 1]].humidity;
+                          // const humidity = data[Object.keys(data)[Object.keys(data).length - 1]].humidity;
+                          const humidity = data.humidity;
                           chart.updateOptions({
                             series: [humidity],
                             plotOptions: {
@@ -951,7 +952,7 @@
   <script src="/js/main.js"></script>
 
   <!-- Liên kết với tệp chart.js -->
-  <script src="/js/chart.js"></script>
+  <script type="module" src="/js/chart.js"></script>
 
   <link type="text/css" href="css/style.css" rel="stylesheet" />
 
