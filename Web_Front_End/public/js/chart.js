@@ -70,6 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()); 
     // const startDate = new Date(endDate.getTime() - (24 * 60 * 60 * 1000)); 
 
+
+
     // Tạo mảng chứa timestamp cho mỗi giờ trong 24 giờ trước đó
     const timestamps = Object.keys(data);
     const seriesData = Object.values(data);
