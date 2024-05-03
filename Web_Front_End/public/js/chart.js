@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Tạo mảng chứa timestamp cho mỗi giờ trong 24 giờ trước đó
     const timestamps = Object.keys(data);
     const seriesData = Object.values(data);
-    const pm25 = seriesData.map(item => item.dust);
+    const pm25 = seriesData.map(item => item.dust);// Đổi đơn vị
     const mq135 = seriesData.map(item => item.ppm);
 
     // Thực hiện thay đổi trục hoành để hiển thị dữ liệu trong 24 giờ trước đó
