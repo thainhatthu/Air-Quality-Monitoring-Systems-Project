@@ -1,5 +1,37 @@
 // #CHART 1 
 import { getAnalysis } from './firebaseConfig.js';
+
+async function getDaysData(startDate, endDate) {
+  const daysData = {};
+  for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+    const dateString = d.toDateString();
+    const data = await getAnalysis(d);
+    daysData[dateString] = data;
+  }
+  return daysData;
+}
+
+// Hàm tính giá trị trung bình cho mỗi ngày
+function calculateAveragedData(daysData) {
+  const averagedData = {};
+  for (const day in daysData) {
+    if (Object.hasOwnProperty.call(daysData, day)) {
+      const data = daysData[day];
+      const entries = Object.entries(data);
+      const averagedValues = {};
+      for (const key in entries[0][1]) {
+        if (Object.hasOwnProperty.call(entries[0][1], key)) {
+          const values = entries.map(entry => entry[1][key]);
+          const average = values.reduce((acc, curr) => acc + curr, 0) / values.length;
+          averagedValues[key] = average;
+        }
+      }
+      averagedData[day] = averagedValues;
+    }
+  }
+  return averagedData;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const chart = new ApexCharts(document.querySelector("#reportsChart1"), {
     series: [{
@@ -63,23 +95,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //OPTION 24 HOURS AGO 
   document.getElementById('chart1_24h').addEventListener('click', async() => {
-
     const currentDate = new Date();
     const data = await getAnalysis(currentDate);
     console.log(data);
-    // const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()); 
-    // const startDate = new Date(endDate.getTime() - (24 * 60 * 60 * 1000)); 
-
-
 
     // Tạo mảng chứa timestamp cho mỗi giờ trong 24 giờ trước đó
     const timestamps = Object.keys(data);
     const seriesData = Object.values(data);
     const pm25 = seriesData.map(item => item.dust);// Đổi đơn vị
     const mq135 = seriesData.map(item => item.ppm);
-    // for (let hour = startDate.getTime(); hour <= endDate.getTime(); hour += (60 * 60 * 1000)) {
-    //   timestamps.push(hour);
-    // }
 
     // Thực hiện thay đổi trục hoành để hiển thị dữ liệu trong 24 giờ trước đó
     chart.updateOptions({
@@ -93,16 +117,11 @@ document.addEventListener("DOMContentLoaded", () => {
       xaxis: {
         type: 'category',
         categories: timestamps,
-        // min: startDate.getTime(),
-        // max: endDate.getTime(),
         min: 0,
         max: 23,
         labels: {
           rotate: -45,
           formatter: function (value) {
-            // const date = new Date(timestamp);
-            // const formattedDate = `${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}`;
-            // return formattedDate;
             return `${value}h`;
           }
         }
@@ -110,61 +129,88 @@ document.addEventListener("DOMContentLoaded", () => {
     }, false, true);
   });
 
-  // OPTION 7 DAYS AGO 
-  document.getElementById('chart1_7days').addEventListener('click', () => {
-    // Thực hiện thay đổi trục hoành để hiển thị dữ liệu trong 7 ngày gần nhất
+  // OPTION 7 DAYS AGO  
+  document.getElementById('chart1_7days').addEventListener('click', async () => {
     const currentDate = new Date();
+    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
     const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 6);
-    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59);
+    const daysData = await getDaysData(startDate, endDate);
 
-    const days = [];
-    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-      const dayOfMonth = d.getDate();
-      const month = d.toLocaleString('default', { month: 'short' }); // Lấy tên của tháng
-      const formattedDate = `${dayOfMonth} ${month}`;
-      days.push(formattedDate); // Thêm vào mảng
-    }
+    // Tạo mảng chứa giá trị trung bình cho mỗi ngày
+    const averagedData = calculateAveragedData(daysData);
 
+    // Tạo mảng các ngày để hiển thị trên trục hoành
+    const days = Object.keys(averagedData);
+
+    // Cập nhật dữ liệu trên biểu đồ
     chart.updateOptions({
+      series: [{
+        name: 'PM 2.5',
+        data: Object.values(averagedData).map(item => item.dust)
+      }, {
+        name: 'MQ135',
+        data: Object.values(averagedData).map(item => item.ppm)
+      }],
       xaxis: {
-        type: 'categories',
+        type: 'category',
         categories: days,
         labels: {
           rotate: -45,
           formatter: function (value) {
-            return value;
+            // Chỉ lấy tháng và ngày từ chuỗi ngày tháng
+            return value.split(' ').slice(1, 3).join(' ');
           }
-        },
-        tickAmount: 7 // Số lượng ngày hiển thị trên trục hoành
+        }
+      },
+      yaxis: {
+        labels: {
+          formatter: function (value) {
+            return value.toFixed(2); // Làm tròn giá trị không có chấm thập phân
+          }
+        }
       }
     }, false, true);
   });
 
   //OPTION 30 DAYS AGO 
-  document.getElementById('chart1_30days').addEventListener('click', () => {
+  document.getElementById('chart1_30days').addEventListener('click', async () => {
     const currentDate = new Date();
+    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
     const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 29);
-    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59);
+    const daysData = await getDaysData(startDate, endDate);
 
-    const days = [];
-    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-      const dayOfMonth = d.getDate();
-      const month = d.toLocaleString('default', { month: 'short' }); // Lấy tên của tháng
-      const formattedDate = `${dayOfMonth} ${month}`; // Kết hợp ngày và tháng
-      days.push(formattedDate); // Thêm vào mảng
-    }
+    // Tạo mảng chứa giá trị trung bình cho mỗi ngày
+    const averagedData = calculateAveragedData(daysData);
 
+    // Tạo mảng các ngày để hiển thị trên trục hoành
+    const days = Object.keys(averagedData);
+
+    // Cập nhật dữ liệu trên biểu đồ
     chart.updateOptions({
+      series: [{
+        name: 'PM 2.5',
+        data: Object.values(averagedData).map(item => item.dust)
+      }, {
+        name: 'MQ135',
+        data: Object.values(averagedData).map(item => item.ppm)
+      }],
       xaxis: {
-        type: 'categories',
+        type: 'category',
         categories: days,
         labels: {
           rotate: -45,
-          formatter: function (value, timestamp, index) {
-            return value; // Hiển thị tên của mỗi ngày
+          formatter: function (value) {
+            // Chỉ lấy tháng và ngày từ chuỗi ngày tháng
+            return value.split(' ').slice(1, 3).join(' ');
           }
-        },
-        tickAmount: 30
+        }
+      },
+      yaxis: {
+        labels: {
+          formatter: function (value) {
+            return value.toFixed(2); // Làm tròn giá trị không có chấm thập phân
+          }
+        }
       }
     }, false, true);
   });
@@ -233,86 +279,131 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   chart.render();
 
-  document.getElementById('chart2_24h').addEventListener('click', () => {
+  document.getElementById('chart2_24h').addEventListener('click', async() => {
     const currentDate = new Date();
-    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
-    const startDate = new Date(endDate.getTime() - (24 * 60 * 60 * 1000));
+    const data = await getAnalysis(currentDate);
+    console.log(data);
 
-    const timestamps = [];
-    for (let hour = startDate.getTime(); hour <= endDate.getTime(); hour += (60 * 60 * 1000)) {
-      timestamps.push(hour);
-    }
+    // Tạo mảng chứa timestamp cho mỗi giờ trong 24 giờ trước đó
+    const timestamps = Object.keys(data);
+    const seriesData = Object.values(data);
+    //const tds = seriesData.map(item => item.tds);
+    const hum = seriesData.map(item => item.humidity);
+    const temp = seriesData.map(item => item.temperature);
 
+    // Thực hiện thay đổi trục hoành để hiển thị dữ liệu trong 24 giờ trước đó
     chart.updateOptions({
+      series: [{
+        name: 'TDS',
+        data: [15, 11, 10, 18, 1, 2, 1]
+      }, {
+        name: 'Humidity',
+        data: hum
+      }, {
+        name: 'Temperature',
+        data: temp
+      }],
       xaxis: {
-        type: 'datetime',
+        type: 'category',
         categories: timestamps,
-        min: startDate.getTime(),
-        max: endDate.getTime(),
+        min: 0,
+        max: 23,
         labels: {
           rotate: -45,
-          formatter: function (value, timestamp, index) {
-            const date = new Date(timestamp);
-            const formattedDate = `${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}`;
-            return formattedDate;
+          formatter: function (value) {
+            return `${value}h`;
           }
         }
       }
     }, false, true);
   });
 
-  document.getElementById('chart2_7days').addEventListener('click', () => {
+  document.getElementById('chart2_7days').addEventListener('click', async() => {
     const currentDate = new Date();
+    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
     const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 6);
-    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59);
+    const daysData = await getDaysData(startDate, endDate);
 
-    const days = [];
-    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-      const dayOfMonth = d.getDate();
-      const month = d.toLocaleString('default', { month: 'short' });
-      const formattedDate = `${dayOfMonth} ${month}`;
-      days.push(formattedDate);
-    }
+    // Tạo mảng chứa giá trị trung bình cho mỗi ngày
+    const averagedData = calculateAveragedData(daysData);
 
+    // Tạo mảng các ngày để hiển thị trên trục hoành
+    const days = Object.keys(averagedData);
+
+    // Cập nhật dữ liệu trên biểu đồ
     chart.updateOptions({
+      series: [{
+        name: 'TDS',
+        data: [15, 11, 10, 18, 1, 2, 1]
+      }, {
+        name: 'Humidity',
+        data: Object.values(averagedData).map(item => item.humidity)
+      }, {
+        name: 'Temperature',
+        data: Object.values(averagedData).map(item => item.temperature)
+      }],
       xaxis: {
-        type: 'categories',
+        type: 'category',
         categories: days,
         labels: {
           rotate: -45,
-          formatter: function (value, timestamp, index) {
-            return value;
+          formatter: function (value) {
+            // Chỉ lấy tháng và ngày từ chuỗi ngày tháng
+            return value.split(' ').slice(1, 3).join(' ');
           }
-        },
-        tickAmount: 7
+        }
+      },
+      yaxis: {
+        labels: {
+          formatter: function (value) {
+            return value.toFixed(2); // Làm tròn giá trị không có chấm thập phân
+          }
+        }
       }
     }, false, true);
   });
 
-  document.getElementById('chart2_30days').addEventListener('click', () => {
+  document.getElementById('chart2_30days').addEventListener('click', async() => {
     const currentDate = new Date();
+    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
     const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 29);
-    const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59);
+    const daysData = await getDaysData(startDate, endDate);
 
-    const days = [];
-    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-      const dayOfMonth = d.getDate();
-      const month = d.toLocaleString('default', { month: 'short' });
-      const formattedDate = `${dayOfMonth} ${month}`;
-      days.push(formattedDate);
-    }
+    // Tạo mảng chứa giá trị trung bình cho mỗi ngày
+    const averagedData = calculateAveragedData(daysData);
 
+    // Tạo mảng các ngày để hiển thị trên trục hoành
+    const days = Object.keys(averagedData);
+
+    // Cập nhật dữ liệu trên biểu đồ
     chart.updateOptions({
+      series: [{
+        name: 'TDS',
+        data: [15, 11, 10, 18, 1, 2, 1]
+      }, {
+        name: 'Humidity',
+        data: Object.values(averagedData).map(item => item.humidity)
+      }, {
+        name: 'Temperature',
+        data: Object.values(averagedData).map(item => item.temperature)
+      }],
       xaxis: {
-        type: 'categories',
+        type: 'category',
         categories: days,
         labels: {
           rotate: -45,
-          formatter: function (value, timestamp, index) {
-            return value;
+          formatter: function (value) {
+            // Chỉ lấy tháng và ngày từ chuỗi ngày tháng
+            return value.split(' ').slice(1, 3).join(' ');
           }
-        },
-        tickAmount: 30
+        }
+      },
+      yaxis: {
+        labels: {
+          formatter: function (value) {
+            return value.toFixed(2); // Làm tròn giá trị không có chấm thập phân
+          }
+        }
       }
     }, false, true);
   });
