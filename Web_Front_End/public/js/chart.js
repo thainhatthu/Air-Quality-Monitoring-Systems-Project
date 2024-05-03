@@ -70,10 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()); 
     // const startDate = new Date(endDate.getTime() - (24 * 60 * 60 * 1000)); 
 
+
+
     // Tạo mảng chứa timestamp cho mỗi giờ trong 24 giờ trước đó
     const timestamps = Object.keys(data);
     const seriesData = Object.values(data);
-    const pm25 = seriesData.map(item => item.dust);
+    const pm25 = seriesData.map(item => item.dust);// Đổi đơn vị
     const mq135 = seriesData.map(item => item.ppm);
     // for (let hour = startDate.getTime(); hour <= endDate.getTime(); hour += (60 * 60 * 1000)) {
     //   timestamps.push(hour);
@@ -129,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
         categories: days,
         labels: {
           rotate: -45,
-          formatter: function (value, timestamp, index) {
+          formatter: function (value) {
             return value;
           }
         },
