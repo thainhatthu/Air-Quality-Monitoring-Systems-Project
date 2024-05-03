@@ -25,8 +25,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 //Real-time database
 const database = getDatabase(app);
-async function writeData(data, user_id) {//{temperature, humidity, dust, ppm}
-  const now = new Date();
+async function writeData(data, user_id, random = false) {//{temperature, humidity, dust, ppm}
+  let now;
+  if(!random)
+    now = new Date();
+  else{
+    //for fake date
+    now = new Date()
+    now.setDate(now.getDate() - getRndInteger(0, 30));
+  }
+    
   const randomHour = getRndInteger(0,24);
   const db = getDatabase();
   // const refAnalysis = ref(db,`/analysis/${user_id}/${formatDate(now)}/${now.getHours()}`);

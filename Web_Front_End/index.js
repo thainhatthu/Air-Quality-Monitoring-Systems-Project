@@ -43,6 +43,9 @@ app.get('/js/main/main.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'js', 'main', 'main.js'));
 });
 // Fake data nè ní
+app.get('/fakedata', (req, res)=>{
+  res.sendFile(path.join(__dirname, 'public', 'fake-data.html'));
+});
 const port = process.env.PORT || 80;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
