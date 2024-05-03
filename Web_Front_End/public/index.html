@@ -192,29 +192,11 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="Dashboard">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Charts Nav -->
 
      
       <li class="nav-heading">Pages</li>
@@ -294,7 +276,7 @@
                       <i class="bi bi-clock"></i>
                     </div>
                     <div class="ps-3">
-                      <h6 id="real-time">20:30 PM</h6>
+                      <h6 id="real-time"></h6>
                       <span class="text-muted small pt-2 ps-1">Viet Nam</span>
                     </div>
                   </div>
@@ -320,7 +302,7 @@
                       <i class="bi bi-cloud-rain"></i>
                     </div>
                     <div class="ps-3">
-                      <h6 id="temperature1">35 °C </h6>
+                      <h6 id="temperature1"></h6>
                       <span class="text-muted small pt-2 ps-1">It's hot today</span>
                     </div>
                   </div>
@@ -344,8 +326,6 @@
             </script>
 
             <!-- End Customers Card -->
-
-            
             
             <div class="row">
               <div class="col-lg-6">
@@ -388,14 +368,13 @@
                               }
                             }
                           },
-                          labels: ['Apples'],
                           colors: ['#FF0000']
                         });
                         chart.render();
                         onValueData((data) => {
                           const dust = data[Object.keys(data)[Object.keys(data).length - 1]].dust;
                           chart.updateOptions({
-                            series: [dust*100], //Cái dust hình như chỉ từ 0 tới 1 thôi
+                            series: [dust*100], 
                             plotOptions: {
                             radialBar: {
                               dataLabels: {
@@ -403,10 +382,10 @@
                                 value: { fontSize: '16px' },
                                 total: {
                                   show: true,
-                                  label: 'Total',
+                                  label: 'µg/m³',
                                   formatter: function(w) {
-                                    return dust;
-                                  }
+                                    return dust*1000;
+                                  },
                                 }
                               }
                             }
@@ -458,14 +437,13 @@
                               }
                             }
                           },
-                          labels: ['Pears'],
                           colors: ['#8B322C']
                         });
                         chart.render();
                         onValueData((data) => {
                           const ppm = data[Object.keys(data)[Object.keys(data).length - 1]].ppm;
                           chart.updateOptions({
-                            series: [ppm],
+                            series: [ppm/10],
                             plotOptions: {
                             radialBar: {
                               dataLabels: {
@@ -473,7 +451,7 @@
                                 value: { fontSize: '16px' },
                                 total: {
                                   show: true,
-                                  label: 'Total',
+                                  label: 'ppm',
                                   formatter: function(w) {
                                     return ppm;
                                   }
@@ -512,7 +490,7 @@
                                 value: { fontSize: '16px' },
                                 total: {
                                   show: true,
-                                  label: 'Total',
+                                  label: 'ppm',
                                   formatter: function(w) {
                                     return 299;
                                   }
@@ -520,7 +498,6 @@
                               }
                             }
                           },
-                          labels: ['Kiwi']
                         }).render();
                       });
                     </script>
@@ -567,7 +544,6 @@
                               }
                             }
                           },
-                          labels: ['Humidity'],
                           colors: ['#10439F']
                         });
                         chart.render();
@@ -582,7 +558,7 @@
                                 value: { fontSize: '16px' },
                                 total: {
                                   show: true,
-                                  label: 'Total',
+                                  label: '%',
                                   formatter: function(w) {
                                     return humidity;
                                   }
@@ -781,7 +757,7 @@
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label"></div>
+                  <div class="activite-label">µg/m³</div>
                   <i class='activity-badge text-muted align-self-start'></i>
                   <div class="activity-content">
 
@@ -856,9 +832,9 @@
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label"></div>
+                  <div class="activite-label">PPM</div>
                   <i class='activity-badge text-muted align-self-start'></i>
-                  <div class="activity-content">
+                  <div class="activity-content"> 
                   </div>
                 </div><!-- End activity item-->
               </div>

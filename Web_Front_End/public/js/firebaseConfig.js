@@ -19,7 +19,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const db = getDatabase(app);
-export const refdb = ref(db, 'data/215226482152149021522077/');
+export const refdb = ref(db, 'currentdata/215226482152149021522077/');
 export const onValueData = (callback)=>{
   onValue(refdb, (snapshot) => {
     callback(snapshot.val());
