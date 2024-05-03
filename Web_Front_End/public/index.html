@@ -375,7 +375,7 @@
                           // const dust = data[Object.keys(data)[Object.keys(data).length - 1]].dust;
                           const dust = data.dust;
                           chart.updateOptions({
-                            series: [dust*100], 
+                            series: [dust], 
                             plotOptions: {
                             radialBar: {
                               dataLabels: {
@@ -385,7 +385,7 @@
                                   show: true,
                                   label: 'µg/m³',
                                   formatter: function(w) {
-                                    return dust*1000;
+                                    return dust;
                                   },
                                 }
                               }
