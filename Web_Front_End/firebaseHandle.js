@@ -1,6 +1,10 @@
 const { initializeApp } = require("firebase/app");
 const { getDatabase, update, set,get, ref, query, equalTo } = require ("firebase/database");
-
+const { formatDate, getRndInteger } = require("./helper/dateHelper");
+Number.prototype.round = function(p) {
+  p = p || 10;
+  return parseFloat( this.toFixed(p) );
+};
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -21,20 +25,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 //Real-time database
 const database = getDatabase(app);
-function writeData(data, user_id) {//{temperature, humidity, dust, ppm}
+async function writeData(data, user_id) {//{temperature, humidity, dust, ppm}
+  const now = new Date();
+  const randomHour = getRndInteger(0,24);
   const db = getDatabase();
+  // const refAnalysis = ref(db,`/analysis/${user_id}/${formatDate(now)}/${now.getHours()}`);
+  const refAnalysis = ref(db,`/analysis/${user_id}/${formatDate(now)}/${randomHour}`);
+  let formatData = {};
+  const snapshot = await get(refAnalysis);
+  if(snapshot.exists()){
+    const savedData = snapshot.val();
+    Object.keys(data).forEach(key => {
+      formatData[key] = parseFloat((savedData[key]*savedData["sample"] + data[key])/ (savedData["sample"] + 1)).round(2);;
+    });
+    formatData["sample"] = savedData["sample"] + 1;
+  }else{
+    formatData = data;
+    formatData["sample"] = 1;
+  }
+  
   const updates = {};
-  const time = new Date(new Date().getTime());
-  updates[`/data/${user_id}/`+time] = data;
+  updates[`/currentdata/${user_id}/`] = data;
+  // updates[`/analysis/${user_id}/${formatDate(now)}/${now.getHours()}`] = formatData;
+  updates[`/analysis/${user_id}/${formatDate(now)}/${randomHour}`] = formatData;
   return update(ref(db), updates);
-  // const refData = ref(database, 'data/');
-
-  // set(ref(database, 'data/'), {
-  //   temperature: temperature,
-  //   humidity: humidity,
-  //   dust: dust,
-  //   ppm: ppm,
-  // });
 }
 
 const checkUser = async(user_id)=>{

@@ -19,9 +19,18 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const db = getDatabase(app);
-export const refdb = ref(db, 'data/215226482152149021522077/');
+// export const refdb = ref(db, 'data/215226482152149021522077/');
+const refdb = ref(db, 'currentdata/215226482152149021522077/');
+const refanalysis = (date)=>{
+  const formatdate = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
+  return ref(db, `analysis/215226482152149021522077/${formatdate}`);
+}
 export const onValueData = (callback)=>{
   onValue(refdb, (snapshot) => {
     callback(snapshot.val());
   });
 } 
+export const getAnalysis = async(date)=>{
+  const snapshot = await get(refanalysis(date));
+  return snapshot.val();
+}

@@ -7,7 +7,7 @@ const firebase = require('./firebaseHandle');
 // Sử dụng các middleware
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
-
+app.use(express.static(`${__dirname}/public`));
 // Sử dụng endpoint "/api" để xử lý các yêu cầu API
 apiHandle(app);
 
@@ -42,8 +42,7 @@ app.get("/Login", (req, res) => {
 app.get('/js/main/main.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'js', 'main', 'main.js'));
 });
-
-
+// Fake data nè ní
 const port = process.env.PORT || 80;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
