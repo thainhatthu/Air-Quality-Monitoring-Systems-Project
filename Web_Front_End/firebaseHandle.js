@@ -70,8 +70,8 @@ async function writeData(data, user_id, random = false) {//{temperature, humidit
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: 'hieu030103@gmail.com', // Thay thế bằng email người gửi
-    pass: 'jxla zanq ajsq zzds'// thay bằng Mật khẩu email ứng dụng của bạn 
+    user: 'eqmonitoring.14@gmail.com', // Thay thế bằng email người gửi
+    pass: 'jefi wfga zklw kbji'// thay bằng Mật khẩu email ứng dụng của bạn 
   }
 });
 
@@ -95,8 +95,8 @@ function sendEmailNotification(sensorType, sensorValue) {
   }
 
   const mailOptions = {
-    from: "hieu030103@gmail.com",  //ví dụ "abcd@gmail.com"
-    to: "hieumdg@gmail.com",   //ví dụ "xyz@gmail.com"
+    from: "eqmonitoring.14@gmail.com",  //ví dụ "abcd@gmail.com"
+    to: "thainhatthu.2003@gmail.com",   //ví dụ "xyz@gmail.com"
     subject: subject,
     text: emailContent
   };

@@ -372,28 +372,47 @@
                         });
                         chart.render();
                         onValueData((data) => {
-                          // const dust = data[Object.keys(data)[Object.keys(data).length - 1]].dust;
                           const dust = data.dust;
-                          chart.updateOptions({
-                            series: [dust], 
-                            plotOptions: {
-                            radialBar: {
-                              dataLabels: {
-                                name: { fontSize: '22px' },
-                                value: { fontSize: '16px' },
-                                total: {
-                                  show: true,
-                                  label: 'µg/m³',
-                                  formatter: function(w) {
-                                    return dust;
-                                  },
-                                }
-                              }
-                            }
+                          let color = '#FF0000'; // Màu mặc định
+                          // Thay đổi màu dựa trên giá trị của dust
+                          if (dust >= 0 && dust <= 12) {
+                              color = '#198754'; // Màu xanh lá
+                          } else if (dust >= 12 && dust < 35.5) {
+                              color = '#ffc107'; // Màu vàng
                           }
+                          else if (dust >= 35.5 && dust < 55.5) {
+                            color = '#fd7e14'; // Màu cam
+                          }
+                          else if (dust >= 55.5 && dust < 150.5) {
+                            color = '#dc3545'; // Màu đỏ
+                          }
+                          else if (dust >= 150.5 && dust < 250.5) {
+                            color = '#d63384'; // Màu tím
+                          }
+                          else if (dust >= 250.5) {
+                            color = '#a44910'; // Màu đỏ
+                          }
+                          chart.updateOptions({
+                              series: [dust / 5],
+                              colors: [color], // Cập nhật màu mới
+                              plotOptions: {
+                                  radialBar: {
+                                      dataLabels: {
+                                          name: { fontSize: '22px' },
+                                          value: { fontSize: '16px' },
+                                          total: {
+                                              show: true,
+                                              label: 'µg/m³',
+                                              formatter: function(w) {
+                                                  return dust;
+                                              },
+                                          }
+                                      }
+                                  }
+                              }
                           });
-                        })
-                      });
+                      })
+                  });
                     </script>
                   </div>
                 </div>
@@ -441,28 +460,47 @@
                         });
                         chart.render();
                         onValueData((data) => {
-                          //const ppm = data[Object.keys(data)[Object.keys(data).length - 1]].ppm;
                           const ppm = data.ppm;
-                          chart.updateOptions({
-                            series: [ppm/10],
-                            plotOptions: {
-                            radialBar: {
-                              dataLabels: {
-                                name: { fontSize: '22px' },
-                                value: { fontSize: '16px' },
-                                total: {
-                                  show: true,
-                                  label: 'ppm',
-                                  formatter: function(w) {
-                                    return ppm;
-                                  }
-                                }
-                              }
-                            }
+                          let color = '#FF0000'; // Màu mặc định
+                          // Thay đổi màu dựa trên giá trị của dust
+                          if (ppm >= 0 && ppm <= 50) {
+                              color = '#198754'; // Màu xanh lá
+                          } else if (ppm > 50 && ppm <= 100) {
+                              color = '#ffc107'; // Màu vàng
                           }
+                          else if (ppm > 100 && ppm <= 150) {
+                            color = '#fd7e14'; // Màu cam
+                          }
+                          else if (ppm > 150 && ppm <= 200) {
+                            color = '#dc3545'; // Màu đỏ
+                          }
+                          else if (ppm > 200 && ppm <= 300) {
+                            color = '#d63384'; // Màu tím
+                          }
+                          else if (ppm > 300) {
+                            color = '#a44910'; // Màu đỏ
+                          }
+                          chart.updateOptions({
+                              series: [ppm/10],
+                              colors: [color], // Cập nhật màu mới
+                              plotOptions: {
+                                  radialBar: {
+                                      dataLabels: {
+                                          name: { fontSize: '22px' },
+                                          value: { fontSize: '16px' },
+                                          total: {
+                                              show: true,
+                                              label: 'ppm',
+                                              formatter: function(w) {
+                                                  return ppm;
+                                              },
+                                          }
+                                      }
+                                  }
+                              }
                           });
-                        })
-                      });
+                      })
+                  });
                     </script>
                   </div>
                 </div>
@@ -639,12 +677,12 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+                  <h5 class="card-title">Notification <span>| Today</span></h5>
 
                   <table class="table table-borderless datatable">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">No</th>
                         <th scope="col">Customer</th>
                         <th scope="col">Product</th>
                         <th scope="col">Price</th>
@@ -699,6 +737,53 @@
 
         <!-- Right side columns -->
         <div class="col-lg-4">
+          
+          <!-- Website Traffic -->
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+
+                <li><a class="dropdown-item" href="#">Today</a></li>
+                <li><a class="dropdown-item" href="#">This Month</a></li>
+                <li><a class="dropdown-item" href="#">This Year</a></li>
+              </ul>
+            </div>
+
+            <div class="card-body pb-3">
+              <h5 class="card-title">LIVE AQI INDEX <span>| Today</span></h5>
+              <div class="card-aqi1"  style="display: flex;">
+                <div class="ic-face custom-image-size">
+                  <img src="/img/ic-face-green.svg" alt="good"> 
+                </div>
+                <div class="info1" style="display: flex;  align-items: center; justify-content: center;"> 
+                  <span class="aqi-inf">47 <br> AQI </span>
+                </div>
+              <h5 class="card-title1">Air pollution level</h5>
+              <div class="info1" style="display: flex;  align-items: center; justify-content: center; width:auto"> 
+                <span class="result-val1">GOOD </span>
+              </div>
+              <span class="index-val1">Pm 2.5| 22.5 µg/m³</span>
+              </div>
+              
+              <div class="card-aqi2"  style="display: flex;">
+                <div class="ic-face custom-image-size">
+                  <img src="/img/ic-face-yellow.svg" alt="good"> 
+                </div>
+                <div class="info1" style="display: flex;  align-items: center; justify-content: center;"> 
+                  <span class="aqi-inf">47 <br> AQI </span>
+                </div>
+              <h5 class="card-title1">Water pollution level</h5>
+              <div class="info1" style="display: flex;  align-items: center; justify-content: center; width:auto"> 
+                <span class="result-val2">MODERATE </span>
+              </div>
+              <span class="index-val2">TDS| 22.5 ppm</span>
+              </div>
+            </div>
+          </div><!-- End Website Traffic -->
 
           <!-- AQI VALUES  -->
           <!-- Recent Activity -->
@@ -713,7 +798,9 @@
                   <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                   <div class="activity-content bg-success text-light d-inline-block" style="width: 300px;">
                     GOOD
-                  </div>
+                  </div>                 
+                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                  <div class="activite-label">0</div>
                 </div><!-- End activity item-->
                 
 
@@ -723,6 +810,8 @@
                   <div class="activity-content bg-warning text-light d-inline-block" style="width: 300px;">
                     MODERATE
                   </div>
+                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                  <div class="activite-label">12</div>
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
@@ -731,6 +820,8 @@
                   <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #ff7f0e;">
                     UNHEALTHY FOR SENSITIVE GROUP
                   </div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #ff7f0e;"></i>
+                  <div class="activite-label">35.5</div>
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
@@ -739,6 +830,8 @@
                   <div class="activity-content bg-danger text-light d-inline-block" style="width: 300px;">
                     UNHEALTHY
                   </div>
+                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                  <div class="activite-label">55.5</div>
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
@@ -747,6 +840,8 @@
                   <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #D862BC;">
                    VERY UNHEALTHY
                   </div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #D862BC;"></i>
+                  <div class="activite-label">150.5</div>
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
@@ -755,17 +850,16 @@
                   <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #a44910;">
                     HAZADOUS
                    </div>
+                   <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #a44910;"></i>
+                   <div class="activite-label">250.5</div>
                 </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">µg/m³</div>
-                  <i class='activity-badge text-muted align-self-start'></i>
-                  <div class="activity-content">
-
-                  </div>
-                </div><!-- End activity item-->
+                  <div class="activity-content"></div>              
               </div>
             </div>
+            <div class="activite-labels">
+              <div class="activite-label1">ppm</div>
+              <div class="activite-label2">µg/m³</div>
+          </div>
           </div><!-- End Recent Activity -->
 
           <!-- TDS VALUES -->
@@ -843,71 +937,6 @@
           </div><!-- End Recent Activity -->
                     
 
-          <!-- Website Traffic -->
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
-            <div class="card-body pb-0">
-              <h5 class="card-title">Website Traffic <span>| Today</span></h5>
-
-              <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  echarts.init(document.querySelector("#trafficChart")).setOption({
-                    tooltip: {
-                      trigger: 'item'
-                    },
-                    legend: {
-                      top: '5%',
-                      left: 'center'
-                    },
-                    series: [{
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: ['40%', '70%'],
-                      avoidLabelOverlap: false,
-                      label: {
-                        show: false,
-                        position: 'center'
-                      },
-                      emphasis: {
-                        label: {
-                          show: true,
-                          fontSize: '18',
-                          fontWeight: 'bold'
-                        }
-                      },
-                      labelLine: {
-                        show: false
-                      },
-                      data: [{
-                          value: 1048,
-                          name: 'Search Engine'
-                        },
-                        {
-                          value: 735,
-                          name: 'Direct'
-                        }
-                      ]
-                    }]
-                  });
-                });
-              </script>
-
-            </div>
-          </div><!-- End Website Traffic -->
          
         </div><!-- End Right side columns -->
 
@@ -918,7 +947,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Group 7</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>Group 14</span></strong>. All Rights Reserved
     </div>
   </footer><!-- End Footer -->
 
