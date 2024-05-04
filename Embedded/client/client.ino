@@ -145,7 +145,7 @@ float dustRead(){
  
   // Linear Equation http://www.howmuchsnow.com/arduino/airquality/
   // Chris Nafis (c) 2012
-  dustDensity = 0.17 * calcVoltage - 0.1;
+  dustDensity = (0.17 * calcVoltage - 0.1)*1000;
  
   return dustDensity;
 
