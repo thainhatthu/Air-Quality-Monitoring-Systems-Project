@@ -70,8 +70,8 @@ async function writeData(data, user_id, random = false) {//{temperature, humidit
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: 'abcd@gmail.com', // Thay thế bằng email người gửi
-    pass: 'abc'// thay bằng Mật khẩu email ứng dụng của bạn 
+    user: 'hieu030103@gmail.com', // Thay thế bằng email người gửi
+    pass: 'jxla zanq ajsq zzds'// thay bằng Mật khẩu email ứng dụng của bạn 
   }
 });
 
@@ -95,8 +95,8 @@ function sendEmailNotification(sensorType, sensorValue) {
   }
 
   const mailOptions = {
-    from: mailnguoigui,  //ví dụ "abcd@gmail.com"
-    to: mailnguoinhan,   //ví dụ "xyz@gmail.com"
+    from: "hieu030103@gmail.com",  //ví dụ "abcd@gmail.com"
+    to: "hieumdg@gmail.com",   //ví dụ "xyz@gmail.com"
     subject: subject,
     text: emailContent
   };
@@ -174,7 +174,7 @@ onValue(ppmRef, (snapshot) => {
   }
 });
 
-// Function to check user data
+// Function to check user
 async function checkUser(user_id) {
   const db = getDatabase();
   const userRef = ref(db, `users/${user_id}`);
