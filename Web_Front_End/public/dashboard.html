@@ -41,7 +41,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="dashboard.html" class="logo d-flex align-items-center">
         <img src="img/logo.png" alt="">
         <span class="d-none d-lg-block">Monitoring systems</span>
       </a>
@@ -217,7 +217,7 @@
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
@@ -743,13 +743,6 @@
             <div class="filter">
               <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
               </ul>
             </div>
 
@@ -760,13 +753,15 @@
                   <img src="/img/ic-face-green.svg" alt="good"> 
                 </div>
                 <div class="info1" style="display: flex;  align-items: center; justify-content: center;"> 
-                  <span class="aqi-inf">47 <br> AQI </span>
+                  <span id="mq135" class="aqi-inf"></span>
+                  <span class="aqi-inf"> AQI </span>
                 </div>
               <h5 class="card-title1">Air pollution level</h5>
               <div class="info1" style="display: flex;  align-items: center; justify-content: center; width:auto"> 
                 <span class="result-val1">GOOD </span>
               </div>
-              <span class="index-val1">Pm 2.5| 22.5 µg/m³</span>
+              <!-- <span class="index-val1">Pm 2.5| µg/m³</span> -->
+                <span id="pm" class="index-val1"></span>
               </div>
               
               <div class="card-aqi2"  style="display: flex;">
@@ -774,16 +769,39 @@
                   <img src="/img/ic-face-yellow.svg" alt="good"> 
                 </div>
                 <div class="info1" style="display: flex;  align-items: center; justify-content: center;"> 
-                  <span class="aqi-inf">47 <br> AQI </span>
+                  <span id="tds" class="aqi-inf"> </span>
+                  <span class="aqi-inf"> AQI </span>
                 </div>
               <h5 class="card-title1">Water pollution level</h5>
               <div class="info1" style="display: flex;  align-items: center; justify-content: center; width:auto"> 
                 <span class="result-val2">MODERATE </span>
               </div>
-              <span class="index-val2">TDS| 22.5 ppm</span>
+              <!-- <span class="index-val2">TDS| 22.5 ppm</span> -->
+              <span id="tds1" class="index-val2"></span>
               </div>
             </div>
-          </div><!-- End Website Traffic -->
+          </div>
+
+          <script type="module">
+            // Import hàm từ tệp firebaseConfig.js
+            import {app, onValueData} from './js/firebaseConfig.js';
+            
+            document.addEventListener("DOMContentLoaded", () => {
+                // Khi trang được tải, lắng nghe sự kiện cập nhật dữ liệu từ Firebase
+                onValueData((data) => {
+                    const mq135 = data.ppm;
+                    const pm = data.dust;
+                    const tds = data.humidity;
+                    // Cập nhật giá trị vào phần tử HTML
+                    document.getElementById('mq135').innerText = mq135;
+                    document.getElementById('pm').innerText = pm;
+                    document.getElementById('tds').innerText = tds;
+                    document.getElementById('tds1').innerText = tds;
+                });
+            });
+          </script>
+
+          <!-- End Website Traffic -->
 
           <!-- AQI VALUES  -->
           <!-- Recent Activity -->
