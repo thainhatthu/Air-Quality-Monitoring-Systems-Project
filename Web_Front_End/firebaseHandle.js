@@ -71,10 +71,9 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: 'eqmonitoring.14@gmail.com', // Thay thế bằng email người gửi
-    pass: 'jefi wfga zklw kbji'// thay bằng Mật khẩu email ứng dụng của bạn 
+    pass: 'kvxl lltk dota zwek'// thay bằng Mật khẩu email ứng dụng của bạn 
   }
 });
-
 
 // Function to send email notification
 function sendEmailNotification(sensorType, sensorValue) {
@@ -96,7 +95,7 @@ function sendEmailNotification(sensorType, sensorValue) {
 
   const mailOptions = {
     from: "eqmonitoring.14@gmail.com",  //ví dụ "abcd@gmail.com"
-    to: "thainhatthu.2003@gmail.com",   //ví dụ "xyz@gmail.com"
+    to: "	thainhatthu.2003@gmail.com",   //ví dụ "xyz@gmail.com"
     subject: subject,
     text: emailContent
   };
@@ -154,7 +153,7 @@ onValue(temperatureRef, (snapshot) => {
   if (temperatureValue > 38 && temperatureValue < 40 && !alertStatus.temperature) {
     sendEmailNotification("Temperature", temperatureValue);
     alertStatus.temperature = true;
-  } else if (temperatureValue > 39) {
+  } else if (temperatureValue > 40) {
     sendEmailNotification("Temperature", temperatureValue);
     alertStatus.temperature = false;
   }
