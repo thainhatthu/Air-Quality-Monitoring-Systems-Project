@@ -50,6 +50,15 @@ app.post("/Login", (req, res) => {
     }
   });
 });
+app.post("/email-noti", (req, res)=>{
+  console.log(req.body);
+  const {email, user_id} = req.body;
+  firebaseHandler.addEmail(user_id, email).then(()=>{
+    res.redirect('/Dashboard');
+  }).catch((e)=>{
+    res.redirect('/Profile');
+  });
+})
 // Route để phản hồi với tệp JavaScript trong thư mục public/js/main
 app.get('/js/main/main.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'js', 'main', 'main.js'));
