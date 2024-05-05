@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const {getEmail} = require('../firebaseHandle');
+const { getUser, addEmail } = require('../firebaseHandle');
 // Initialize Nodemailer transporter
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -12,6 +12,8 @@ const transporter = nodemailer.createTransport({
 
 // Function to send email notification
 async function sendEmailNotification(user_id, sensorType, sensorValue) {
+  const user = await getUser(user_id);
+  const email = user.email;
   let emailContent = "";
   let subject = "";
   if (sensorType === "Dust") {
@@ -27,7 +29,7 @@ async function sendEmailNotification(user_id, sensorType, sensorValue) {
     emailContent = `The CO2 level is ${sensorValue}. Please take necessary actions.`;
     subject = "CO2 Level Alert";
   }
-  const email = await getEmail(user_id);
+  
   const mailOptions = {
     from: "hieu030103@gmail.com",  //ví dụ "abcd@gmail.com"
     to: email,   //ví dụ "xyz@gmail.com"
@@ -38,6 +40,7 @@ async function sendEmailNotification(user_id, sensorType, sensorValue) {
     if (error) {
       console.error("Error sending email:", error);
     } else {
+      addEmail(user_id, "", false)
       console.log("Email sent:", info.response);
     }
   });
@@ -55,6 +58,9 @@ const alertStatus = {
 //Check value
 async function checkToSendMail(user_id, data){
   const {dust,humidity, temperature, ppm} = data;
+  const user = await getUser(user_id);
+  if(!user.sendMail)
+    return;
   console.log(data);
   if (dust > 50 && dust < 100 && !alertStatus.dust) {
     await sendEmailNotification(user_id, "Dust", dust);

@@ -34,7 +34,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="dashboard.html" class="logo d-flex align-items-center">
         <img src="img/logo.png" alt="">
         <span class="d-none d-lg-block">Monitoring systems</span>
       </a>
@@ -210,7 +210,7 @@
       <h1>Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
           <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
@@ -247,19 +247,33 @@
 
               <div class="visible">
                 <p>Enter your email!</p>
-                <input type="email" id="email" name="email" class="email-input">
+                <input type="email" id="email-noti" name="email" class="email-input">
                 <button type="submit" id="btnSubmitEmail" class="confirm-button">Confirm</button>
               </div>
             </div>
             <script type="module">
               import { getCookie } from "/js/cookieHandle.js";
+              import { getUser, setUserSendEmail } from "/js/firebaseConfig.js"
+              document.addEventListener("DOMContentLoaded", async function () {
+                // Lấy phần tử toggle
+                const user = await getUser();
+                console.log(user);
+                var toggle = document.getElementById("toggle");
 
-              const btnSubmitEmail = document.getElementById('btnSubmitEmail');
-              console.log(btnSubmitEmail);
-
-              if (btnSubmitEmail) {
-                btnSubmitEmail.addEventListener('click', async function () {
-                  const email = document.getElementById('email').value;
+                // Lấy phần tử visible
+                var visible = document.querySelector(".visible");
+                // Lấy phẩn tử email noti
+                var emailNoti = document.querySelector("#email-noti");
+                // Lấy phần tử confirm button
+                var confirmButton = document.querySelector("#btnSubmitEmail");
+                if(user.sendMail){
+                  toggle.checked = true;
+                  emailNoti.value = user.email;
+                  visible.classList.remove("hidden");
+                }
+                // Thêm sự kiện click cho nút Confirm
+                confirmButton.addEventListener("click", async function () {
+                  const email = document.getElementById('email-noti').value;
                   const user_id = getCookie('user_id');
                   const response = await fetch('/email-noti', {
                     method: 'POST',
@@ -268,14 +282,26 @@
                     },
                     body: JSON.stringify({ email, user_id })
                   });
-                  // const data = await response.json();
-                  // if (data.status === 'success') {
-                  //   console.log('Email added');
-                  // } else {
-                  //   console.log('Error adding email');
-                  // }
+                  visible.classList.add("hidden");
+
                 });
-              }
+
+                // Thêm sự kiện change cho toggle
+                toggle.addEventListener("change", async function () {
+                  if (toggle.checked) {
+                    visible.classList.remove("hidden");
+                    if(user.email)
+                      emailNoti.value = user.email;
+                    if(user.email){
+                      await setUserSendEmail(true);
+                    }
+                  } else {
+                    visible.classList.add("hidden");
+                    await setUserSendEmail(false);
+                  }
+                });
+              });
+              
             </script>
           </section>
           <!--End Email notify setting -->

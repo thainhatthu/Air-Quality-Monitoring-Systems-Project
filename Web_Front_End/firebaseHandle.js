@@ -66,10 +66,10 @@ async function writeData(data, user_id, random = false) {//{temperature, humidit
   return update(ref(db), updates);
 }
 
-// Function to get email
-async function getEmail(user_id) {
+// Function to get user
+async function getUser(user_id) {
   const db = getDatabase();
-  const userRef = ref(db, `users/${user_id}/email`);
+  const userRef = ref(db, `users/${user_id}`);
   const snapshot = await get(userRef);
 
   if (snapshot.exists()) {
@@ -79,12 +79,20 @@ async function getEmail(user_id) {
     return false;
   }
 }
-
 // Function to add email
-async function addEmail(user_id, email) {
+async function addEmail(user_id, email, sendMail = true) {
   const db = getDatabase();
-  const userRef = ref(db, `users/${user_id}/email`);
-  return set(userRef, email);
+  const userRef = ref(db, `users/${user_id}`);
+  if(sendMail)
+    return update(userRef, {
+      email: email,
+      sendMail: sendMail
+    });
+  else
+    return update(userRef, {
+      email: "",
+      sendMail: sendMail
+    });
 }
 // Function to check user
 async function checkUser(user_id) {
@@ -101,9 +109,8 @@ async function checkUser(user_id) {
 }
 
 module.exports = {
-  database: database,
   writeData: writeData,
   checkUser: checkUser,
-  getEmail: getEmail,
+  getUser: getUser,
   addEmail: addEmail
 };
