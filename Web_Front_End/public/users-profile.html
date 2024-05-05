@@ -11,7 +11,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -129,7 +131,7 @@
           </ul><!-- End Notification Dropdown Items -->
 
         </li><!-- End Notification Nav -->
-          
+
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -238,20 +240,72 @@
           <section class="demo-container">
             <h1>Email notification: </h1>
             <div class="kitty-switch">
-                <input type="checkbox" id="toggle" tabindex="1">
-                <div class="kitty"></div>
-                <label for="toggle" class="well"></label>
-                <span class="prompt">Do you want to receive <br> warning notifications? </span>
-        
-                <div class="visible">
-                    <p>Enter your email!</p>
-                    <input type="email" id="email" name="email" class="email-input">
-                    <button class="confirm-button">Confirm</button>
-                </div>
+              <input type="checkbox" id="toggle" tabindex="1">
+              <div class="kitty"></div>
+              <label for="toggle" class="well"></label>
+              <span class="prompt">Do you want to receive <br> warning notifications? </span>
+
+              <div class="visible">
+                <p>Enter your email!</p>
+                <input type="email" id="email-noti" name="email" class="email-input">
+                <button type="submit" id="btnSubmitEmail" class="confirm-button">Confirm</button>
+              </div>
             </div>
-        </section>
+            <script type="module">
+              import { getCookie } from "/js/cookieHandle.js";
+              import { getUser, setUserSendEmail } from "/js/firebaseConfig.js"
+              document.addEventListener("DOMContentLoaded", async function () {
+                // Lấy phần tử toggle
+                const user = await getUser();
+                console.log(user);
+                var toggle = document.getElementById("toggle");
+
+                // Lấy phần tử visible
+                var visible = document.querySelector(".visible");
+                // Lấy phẩn tử email noti
+                var emailNoti = document.querySelector("#email-noti");
+                // Lấy phần tử confirm button
+                var confirmButton = document.querySelector("#btnSubmitEmail");
+                if(user.sendMail){
+                  toggle.checked = true;
+                  emailNoti.value = user.email;
+                  visible.classList.remove("hidden");
+                }
+                // Thêm sự kiện click cho nút Confirm
+                confirmButton.addEventListener("click", async function () {
+                  const email = document.getElementById('email-noti').value;
+                  const user_id = getCookie('user_id');
+                  const response = await fetch('/email-noti', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, user_id })
+                  });
+                  visible.classList.add("hidden");
+
+                });
+
+                // Thêm sự kiện change cho toggle
+                toggle.addEventListener("change", async function () {
+                  if (toggle.checked) {
+                    visible.classList.remove("hidden");
+                    if(user.email)
+                      emailNoti.value = user.email;
+                    if(user.email){
+                      await setUserSendEmail(true);
+                    }
+                  } else {
+                    visible.classList.add("hidden");
+                    await setUserSendEmail(false);
+                  }
+                });
+              });
+              
+            </script>
+          </section>
           <!--End Email notify setting -->
-      </div>
+        </div>
 
         <div class="col-xl-8">
 
@@ -261,7 +315,8 @@
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                 <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                  <button class="nav-link active" data-bs-toggle="tab"
+                    data-bs-target="#profile-overview">Overview</button>
                 </li>
 
                 <li class="nav-item">
@@ -273,7 +328,9 @@
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                   <h5 class="card-title">About</h5>
-                  <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+                  <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque
+                    temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem
+                    eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
 
                   <h5 class="card-title">Profile Details</h5>
 
@@ -312,8 +369,10 @@
                       <div class="col-md-8 col-lg-9">
                         <img src="img/profile-img.jpg" alt="Profile">
                         <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i
+                              class="bi bi-upload"></i></a>
+                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i
+                              class="bi bi-trash"></i></a>
                         </div>
                       </div>
                     </div>
@@ -335,7 +394,8 @@
                     <div class="row mb-3">
                       <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                        <input name="address" type="text" class="form-control" id="Address"
+                          value="A108 Adam Street, New York, NY 535022">
                       </div>
                     </div>
 
@@ -353,7 +413,7 @@
                       </div>
                     </div>
 
-                   
+
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
@@ -447,7 +507,8 @@
   </main><!-- End #main -->
 
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="vendor/apexcharts/apexcharts.min.js"></script>
@@ -460,7 +521,7 @@
   <script src="vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="js/main.js"></script>
+  <script type="module" src="js/main.js"></script>
 
 </body>
 

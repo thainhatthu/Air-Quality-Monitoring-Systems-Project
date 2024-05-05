@@ -28,7 +28,7 @@
 
   <!-- JS File -->
 
-  <script src="js/main.js"></script>
+  <script type = "module" src="js/main.js"></script>
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -740,45 +740,41 @@
           
           <!-- Website Traffic -->
           <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              </ul>
-            </div>
-
             <div class="card-body pb-3">
               <h5 class="card-title">LIVE AQI INDEX <span>| Today</span></h5>
-              <div class="card-aqi1"  style="display: flex;">
+
+              <div class="card-aqi1" style="display: flex;">
                 <div class="ic-face custom-image-size">
-                  <img src="/img/ic-face-green.svg" alt="good"> 
+                    <img src="" alt="good" id="ic-face-image"> 
                 </div>
-                <div class="info1" style="display: flex;  align-items: center; justify-content: center;"> 
-                  <span id="mq135" class="aqi-inf"></span>
-                  <span class="aqi-inf"> AQI </span>
+                <div class="info1" style="display: flex; flex-direction: column; align-items: center;">
+                    <span class="aqi-info1">AQI</span>
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <span id="mq135" class="aqi-info1"></span>
+                    </div>
                 </div>
-              <h5 class="card-title1">Air pollution level</h5>
-              <div class="info1" style="display: flex;  align-items: center; justify-content: center; width:auto"> 
-                <span class="result-val1">GOOD </span>
-              </div>
-              <!-- <span class="index-val1">Pm 2.5| µg/m³</span> -->
-                <span id="pm" class="index-val1"></span>
-              </div>
+                <h5 class="card-title1">Air pollution level</h5>
+                <span id="result" class="result-val1">GOOD</span>
+                <span class="index-val1">Pm 2.5| <span id="pm" class="pm-value"></span> µg/m³</span>
+            </div>
               
               <div class="card-aqi2"  style="display: flex;">
                 <div class="ic-face custom-image-size">
                   <img src="/img/ic-face-yellow.svg" alt="good"> 
                 </div>
-                <div class="info1" style="display: flex;  align-items: center; justify-content: center;"> 
-                  <span id="tds" class="aqi-inf"> </span>
-                  <span class="aqi-inf"> AQI </span>
+
+                <div class="info1" style="display: flex; flex-direction: column; align-items: center;"> 
+                  <span class="aqi-info2"> AQI </span>
+                  <div style="display: flex; align-items: center; justify-content: center;">
+                    <span id="tds" class="aqi-info2"></span>
+                  </div>
                 </div>
-              <h5 class="card-title1">Water pollution level</h5>
-              <div class="info1" style="display: flex;  align-items: center; justify-content: center; width:auto"> 
-                <span class="result-val2">MODERATE </span>
+                <h5 class="card-title1">Water pollution level</h5>
+                  <span id="result" class="result-val2">VERY UNHEALTHY</span>
+                <!-- <span class="index-val2">TDS| 22.5 ppm</span> -->
+                <span class="index-val2">TDS| <span id="tds1" class="pm-value"></span> ppm</span>
               </div>
-              <!-- <span class="index-val2">TDS| 22.5 ppm</span> -->
-              <span id="tds1" class="index-val2"></span>
-              </div>
+              
             </div>
           </div>
 
@@ -786,6 +782,14 @@
             // Import hàm từ tệp firebaseConfig.js
             import {app, onValueData} from './js/firebaseConfig.js';
             
+            // Hàm để giới hạn độ dài của nội dung và hiển thị dấu "..." khi vượt quá 10 kí tự
+            function limitTextContent(element, maxLength) {
+                const text = element.textContent;
+                if (text.length > maxLength) {
+                    element.textContent = text.slice(0, maxLength) + '...';
+                }
+            }       
+
             document.addEventListener("DOMContentLoaded", () => {
                 // Khi trang được tải, lắng nghe sự kiện cập nhật dữ liệu từ Firebase
                 onValueData((data) => {
@@ -797,10 +801,88 @@
                     document.getElementById('pm').innerText = pm;
                     document.getElementById('tds').innerText = tds;
                     document.getElementById('tds1').innerText = tds;
-                });
-            });
-          </script>
+        
+                    // Thực hiện các thay đổi dựa trên giá trị mới
+                    const mq135Value = parseFloat(mq135);
+                    const tdsValue = parseFloat(tds);
 
+                    const resultVal1 = document.querySelector('.result-val1');
+                    const cardAqi1 = document.querySelector('.card-aqi1');
+                    const icFaceImage1 = document.querySelector('.card-aqi1 .ic-face img');
+
+                    const resultVal2 = document.querySelector('.result-val2');
+                    const cardAqi2 = document.querySelector('.card-aqi2');
+                    const icFaceImage2 = document.querySelector('.card-aqi2 .ic-face img');
+        
+                    // Thay đổi màu của card-aqi1, result-val1 và hình ảnh trong ic-face dựa trên giá trị của aqi-info1
+                    if (mq135Value >= 0 && mq135Value <= 50) {
+                        cardAqi1.style.backgroundColor = '#65B741';
+                        resultVal1.textContent = 'GOOD';
+                        icFaceImage1.src = '/img/ic-face-green.svg'; // Thay đổi hình ảnh
+                    } else if (mq135Value > 50 && mq135Value <= 100) {
+                        cardAqi1.style.backgroundColor = '#F3CA52';
+                        resultVal1.textContent = 'MODERATE';
+                        icFaceImage1.src = '/img/ic-face-yellow.svg'; // Thay đổi hình ảnh
+                    } else if (mq135Value > 100 && mq135Value <= 150) {
+                        cardAqi1.style.backgroundColor = '#F6995C';
+                        resultVal1.textContent = 'UNHEALTHY FOR SENSITIVE GROUP';
+                        icFaceImage1.src = '/img/ic-face-orange.svg'; // Thay đổi hình ảnh
+                    } else if (mq135Value > 150 && mq135Value <= 200) {
+                        cardAqi1.style.backgroundColor = '#F55050';
+                        resultVal1.textContent = 'UNHEALTHY';
+                        icFaceImage1.src = '/img/ic-face-red.svg'; // Thay đổi hình ảnh
+                    } else if (mq135Value > 200 && mq135Value <= 300) {
+                        cardAqi1.style.backgroundColor = '#D862BC';
+                        resultVal1.textContent = 'VERY UNHEALTHY';
+                        icFaceImage1.src = '/img/ic-face-purple.svg'; // Thay đổi hình ảnh
+                    } else if (mq135Value > 300) {
+                        cardAqi1.style.backgroundColor = '#AA5656';
+                        resultVal1.textContent = 'HAZADOUS';
+                        icFaceImage1.src = '/img/ic-face-maroon.svg'; // Thay đổi hình ảnh
+                    }
+
+                    // Thay đổi màu của card-aqi2, result-val2 và hình ảnh trong ic-face2 dựa trên giá trị của tds
+                      if (tdsValue >= 0 && tdsValue <= 50) {
+                        cardAqi2.style.backgroundColor = '#7BC9FF';
+                        resultVal2.textContent = 'LACKS ESSENTIAL MINERALS';
+                        icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    } else if (tdsValue > 50 && tdsValue <= 150) {
+                        cardAqi2.style.backgroundColor = '#22a0fb';
+                        resultVal2.textContent = 'ACCEPTABLE LEVEL';
+                        icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+                      else if (tdsValue > 150 && tdsValue <= 300) {
+                        cardAqi2.style.backgroundColor = '#0052a5';
+                        resultVal2.textContent = 'EXCELLENT';
+                        icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+                      else if (tdsValue > 300 && tdsValue <= 500) {
+                        cardAqi2.style.backgroundColor = '#D862BC';
+                        resultVal2.textContent = 'GOOD';
+                        icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+                    else if (tdsValue > 500 && tdsValue <= 900) {
+                      cardAqi2.style.backgroundColor = '#F3CA52';
+                      resultVal2.textContent = 'FAIR';
+                      icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+                    else if (tdsValue > 900 && tdsValue <= 1200) {
+                      cardAqi2.style.backgroundColor = '#ff7f0e';
+                      resultVal2.textContent = 'POOR';
+                      icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+                    else if (tdsValue > 1200) {
+                      cardAqi2.style.backgroundColor = '#F55050';
+                      resultVal2.textContent = 'UNACCEPTABLE';
+                      icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+
+                    // Giới hạn độ dài của resultVal và hiển thị dấu "..." khi vượt quá 10 kí tự
+                    limitTextContent(resultVal1, 9);
+                    limitTextContent(resultVal2, 9);
+                });
+            });            
+        </script>
           <!-- End Website Traffic -->
 
           <!-- AQI VALUES  -->
@@ -814,7 +896,7 @@
                 <div class="activity-item d-flex">
                   <div class="activite-label">0</div>
                   <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content bg-success text-light d-inline-block" style="width: 300px;">
+                  <div class="activity-content bg-success text-light d-inline-block" style="width: 300px; ">
                     GOOD
                   </div>                 
                   <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
@@ -835,7 +917,7 @@
                 <div class="activity-item d-flex">
                   <div class="activite-label">100</div>
                   <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #ff7f0e;"></i>
-                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #ff7f0e;">
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #f68940;">
                     UNHEALTHY FOR SENSITIVE GROUP
                   </div>
                   <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #ff7f0e;"></i>
@@ -891,7 +973,7 @@
                   <div class="activite-label">0</div>
                   <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #7BC9FF;"></i>
                   <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #7BC9FF">
-                    GOOD
+                    LACKS ESSENTIAL MINERALS
                   </div>
                 </div><!-- End activity item-->
                 
@@ -900,47 +982,47 @@
                   <div class="activite-label">50</div>
                   <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #22a0fb;"></i>
                   <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #22a0fb">
-                    MODERATE
+                    ACCEPTABLE LEVEL
                   </div>
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label">100</div>
+                  <div class="activite-label">150</div>
                   <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #0052a5;"></i>
                   <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #0052a5;">
-                    UNHEALTHY FOR SENSITIVE GROUP
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">200</div>
-                  <i class='bi bi-circle-fill activity-badge align-self-start'  style="color: #D862BC;"></i>
-                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #D862BC;">
-                    UNHEALTHY
+                    EXCELLENT
                   </div>
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
                   <div class="activite-label">300</div>
-                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                  <div class="activity-content bg-warning text-light d-inline-block" style="width: 300px;">
-                  VERY UNHEALTHY
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">400</div>
-                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #ff7f0e;"></i>
-                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #ff7f0e;">
-                    HAZADOUS
+                  <i class='bi bi-circle-fill activity-badge align-self-start'  style="color: #D862BC;"></i>
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #D862BC;">
+                    GOOD
                   </div>
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
                   <div class="activite-label">500</div>
+                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                  <div class="activity-content bg-warning text-light d-inline-block" style="width: 300px;">
+                  FAIR
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">900</div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #ff7f0e;"></i>
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #ff7f0e;">
+                    POOR
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">1200</div>
                   <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
                   <div class="activity-content bg-danger text-light d-inline-block" style="width: 300px;">
-                    HAZADOUS
+                    UNACCEPTABLE
                   </div>
                 </div><!-- End activity item-->
 
@@ -953,9 +1035,7 @@
               </div>
             </div>
           </div><!-- End Recent Activity -->
-                    
-
-         
+                  
         </div><!-- End Right side columns -->
 
       </div>
@@ -984,6 +1064,7 @@
       setInterval(updateRealTime, 1000);
     updateRealTime();
   </script>
+
 
   <!-- Vendor JS Files -->
   <script src="vendor/apexcharts/apexcharts.min.js"></script>

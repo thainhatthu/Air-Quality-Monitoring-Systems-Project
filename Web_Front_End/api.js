@@ -1,4 +1,5 @@
 const firebaseHandler = require('./firebaseHandle');
+const { checkToSendMail } = require('./helper/sendEmail');
 // const { getDatabase, set, ref } = require ("firebase/database");
 const { deviceAuth } = require('./auth');
 Number.prototype.round = function (p) {
@@ -20,6 +21,7 @@ module.exports = (app) => {
       console.log(data);
 
       await firebaseHandler.writeData(data, user_id);
+      await checkToSendMail(user_id, data)
     } catch (e) {
       console.log("Error: ", e);
       res.status(400).json({
@@ -35,32 +37,33 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/api/data', async (req, res) => {
-    try {
-      // Đọc dữ liệu từ Firebase
-      const snapshot = await firebaseHandler.readData();
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        res.status(200).json({
-          status: 'success',
-          data: data
-        });
-      } else {
-        res.status(404).json({
-          status: 'error',
-          message: 'No data available'
-        });
-      }
-    } catch (error) {
-      console.error('Error getting data from Firebase:', error);
-      res.status(500).json({
-        status: 'error',
-        message: 'Internal server error'
-      });
-    }
-  });
+  // app.get('/api/data', async (req, res) => {
+  //   try {
+  //     // Đọc dữ liệu từ Firebase
+  //     const snapshot = await firebaseHandler.readData();
+  //     if (snapshot.exists()) {
+  //       const data = snapshot.val();
+  //       res.status(200).json({
+  //         status: 'success',
+  //         data: data
+  //       });
+  //     } else {
+  //       res.status(404).json({
+  //         status: 'error',
+  //         message: 'No data available'
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error('Error getting data from Firebase:', error);
+  //     res.status(500).json({
+  //       status: 'error',
+  //       message: 'Internal server error'
+  //     });
+  //   }
+  // });
   app.post('/api/fakedata', deviceAuth, async (req, res) => {
     const data = req.body;
+    
     const user_id = req.get('user_id');
     try {
       data.temperature = parseFloat(data.temperature).round(2);
@@ -70,6 +73,8 @@ module.exports = (app) => {
       console.log(data);
 
       await firebaseHandler.writeData(data, user_id, true);
+      await checkToSendMail(user_id, data)
+
     } catch (e) {
       console.log("Error: ", e);
       res.status(400).json({

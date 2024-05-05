@@ -1,8 +1,10 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { get, ref, onValue, getDatabase } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+import { get, set, update, ref, onValue, getDatabase } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+import { getCookie } from "/js/cookieHandle.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+const user_id = getCookie('user_id');
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -23,11 +25,11 @@ export const db = getDatabase(app);
 // export const refdb = ref(db, 'data/215226482152149021522077/');
 const refanalysis = (date)=>{
   const formatdate = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
-  return ref(db, `analysis/215226482152149021522077/${formatdate}`);
+  return ref(db, `analysis/${user_id}/${formatdate}`);
 }
 
-export const refdb = ref(db, 'currentdata/215226482152149021522077/');
-
+export const refdb = ref(db, `currentdata/${user_id}/`);
+const refUser = ref(db, `users/${user_id}`);
 export const onValueData = (callback)=>{
   onValue(refdb, (snapshot) => {
     callback(snapshot.val());
@@ -36,4 +38,15 @@ export const onValueData = (callback)=>{
 export const getAnalysis = async(date)=>{
   const snapshot = await get(refanalysis(date));
   return snapshot.val();
+}
+
+export const getUser = async()=>{
+  const snapshot = await get(refUser);
+  return snapshot.val();
+}
+
+export const setUserSendEmail = async(value)=>{
+  await update(refUser, {
+    sendMail: value
+  });
 }
