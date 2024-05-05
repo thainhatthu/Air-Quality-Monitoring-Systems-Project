@@ -762,6 +762,7 @@
                 <div class="ic-face custom-image-size">
                   <img src="/img/ic-face-yellow.svg" alt="good"> 
                 </div>
+
                 <div class="info1" style="display: flex; flex-direction: column; align-items: center;"> 
                   <span class="aqi-info2"> AQI </span>
                   <div style="display: flex; align-items: center; justify-content: center;">
@@ -787,6 +788,7 @@
                     element.textContent = text.slice(0, maxLength) + '...';
                 }
             }       
+
             document.addEventListener("DOMContentLoaded", () => {
                 // Khi trang được tải, lắng nghe sự kiện cập nhật dữ liệu từ Firebase
                 onValueData((data) => {
@@ -1032,7 +1034,7 @@
               </div>
             </div>
           </div><!-- End Recent Activity -->
-                    
+
         </div><!-- End Right side columns -->
 
       </div>
