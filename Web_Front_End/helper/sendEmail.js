@@ -4,8 +4,8 @@ const { getUser, addEmail } = require('../firebaseHandle');
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: 'hieu030103@gmail.com', // Thay thế bằng email người gửi
-    pass: 'jxla zanq ajsq zzds'// thay bằng Mật khẩu email ứng dụng của bạn 
+    user: 'eqmonitoring.14@gmail.com', // Thay thế bằng email người gửi
+    pass: 'rjlq hdgj ydht cikn'// thay bằng Mật khẩu email ứng dụng của bạn 
   }
 });
 
@@ -31,7 +31,7 @@ async function sendEmailNotification(user_id, sensorType, sensorValue) {
   }
   
   const mailOptions = {
-    from: "hieu030103@gmail.com",  //ví dụ "abcd@gmail.com"
+    from: "eqmonitoring.14@gmail.com",  //ví dụ "abcd@gmail.com"
     to: email,   //ví dụ "xyz@gmail.com"
     subject: subject,
     text: emailContent
