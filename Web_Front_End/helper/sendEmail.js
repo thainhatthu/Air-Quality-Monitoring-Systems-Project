@@ -31,7 +31,7 @@ async function sendEmailNotification(user_id, sensorType, sensorValue) {
   }
   
   const mailOptions = {
-    from: "hieu030103@gmail.com",  //ví dụ "abcd@gmail.com"
+    from: "eqmonitoring.14@gmail.com",  //ví dụ "abcd@gmail.com"
     to: email,   //ví dụ "xyz@gmail.com"
     subject: subject,
     text: emailContent
