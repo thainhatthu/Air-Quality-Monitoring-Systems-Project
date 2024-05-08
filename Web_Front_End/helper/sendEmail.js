@@ -4,8 +4,8 @@ const { getUser, addEmail } = require('../firebaseHandle');
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: 'eqmonitoring.14@gmail.com', // Thay thế bằng email người gửi
-    pass: 'rjlq hdgj ydht cikn'// thay bằng Mật khẩu email ứng dụng của bạn 
+    user: 'hieu030103@gmail.com', // Thay thế bằng email người gửi
+    pass: 'jxla zanq ajsq zzds'// thay bằng Mật khẩu email ứng dụng của bạn 
   }
 });
 
