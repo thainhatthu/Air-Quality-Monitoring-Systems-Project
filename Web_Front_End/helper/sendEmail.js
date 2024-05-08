@@ -9,7 +9,6 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-
 // Function to send email notification
 async function sendEmailNotification(user_id, sensorType, sensorValue) {
   const user = await getUser(user_id);
@@ -95,58 +94,3 @@ async function checkToSendMail(user_id, data){
 module.exports = {
   checkToSendMail: checkToSendMail,
 }
-// // Listen for changes in 'dust' value
-// const dustRef = ref(database, "currentdata/215226482152149021522077/dust");
-// onValue(dustRef, (snapshot) => {
-//   const dustValue = snapshot.val();
-//   console.log("Dust:", dustValue);
-//   if (dustValue > 50 && dustValue < 100 && !alertStatus.dust) {
-//     sendEmailNotification("Dust", dustValue);
-//     alertStatus.dust = true; // Đánh dấu đã gửi cảnh báo
-//   } else if (dustValue >= 100) {
-//     sendEmailNotification("Dust", dustValue);
-//     alertStatus.dust = false;
-//   }
-// });
-
-// // Listen for changes in 'humidity' value
-// const humidityRef = ref(database, "currentdata/215226482152149021522077/humidity");
-// onValue(humidityRef, (snapshot) => {
-//   const humidityValue = snapshot.val();
-//   console.log("Humidity value:", humidityValue);
-//   if (humidityValue >= 80 && humidityValue <= 90 && !alertStatus.humidity) {
-//     sendEmailNotification("Humidity", humidityValue);
-//     alertStatus.humidity = true;
-//   } else if (humidityValue > 90) {
-//     sendEmailNotification("Humidity", humidityValue);
-//     alertStatus.humidity = false;
-//   }
-// });
-
-// // Listen for changes in 'temperature' value
-// const temperatureRef = ref(database, "currentdata/215226482152149021522077/temperature");
-// onValue(temperatureRef, (snapshot) => {
-//   const temperatureValue = snapshot.val();
-//   console.log("Temperature value:", temperatureValue);
-//   if (temperatureValue > 38 && temperatureValue < 40 && !alertStatus.temperature) {
-//     sendEmailNotification("Temperature", temperatureValue);
-//     alertStatus.temperature = true;
-//   } else if (temperatureValue > 39) {
-//     sendEmailNotification("Temperature", temperatureValue);
-//     alertStatus.temperature = false;
-//   }
-// });
-
-// // Listen for changes in 'ppm' value
-// const ppmRef = ref(database, "currentdata/215226482152149021522077/ppm");
-// onValue(ppmRef, (snapshot) => {
-//   const ppmValue = snapshot.val();
-//   console.log("PPM value:", ppmValue);
-//   if (ppmValue > 200 && ppmValue < 300 && !alertStatus.ppm) {
-//     sendEmailNotification("CO2", ppmValue);
-//     alertStatus.ppm = true;
-//   } else if (ppmValue > 300) {
-//     sendEmailNotification("CO2", ppmValue);
-//     alertStatus.ppm = false;
-//   }
-// });
