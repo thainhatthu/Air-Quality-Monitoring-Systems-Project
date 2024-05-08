@@ -20,7 +20,10 @@ analysis:
 			...
 		...
 users:
-	<user_id>: true
+	<user_id>:
+    active: true
+    sendMail: true
+    email: "abc@email.com"
 	...
 
 
