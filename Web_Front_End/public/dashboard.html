@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dashboard</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="img/logo.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- JS File -->
+
+  <script type = "module" src="js/main.js"></script>
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="dashboard.html" class="logo d-flex align-items-center">
+        <img src="img/logo.png" alt="">
+        <span class="d-none d-lg-block">Monitoring systems</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="img/profile-img.png" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Nguyễn Thị Thủm</h6>
+              <span>Web Designer</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="Profile">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="Dashboard">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+     
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="Profile">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+            <!-- Sales Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Location <span>|</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-geo-alt-fill"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>HCM city</h6>
+                      <span class="text-muted small pt-2 ps-1">Linh Trung, Thu Duc</span>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Sales Card -->
+
+            <!-- Revenue Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card revenue-card">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Time <span>|</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-clock"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6 id="real-time"></h6>
+                      <span class="text-muted small pt-2 ps-1">Viet Nam</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Revenue Card -->
+
+    
+
+            <!-- Customers Card -->
+            <div class="col-xxl-4 col-xl-12">
+              <div class="card info-card customers-card">
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"> 
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Weather <span>|</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-cloud-rain"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6 id="temperature1"></h6>
+                      <span class="text-muted small pt-2 ps-1">It's hot today</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <script type="module">
+              // Import hàm từ tệp firebaseConfig.js
+              import {app, onValueData} from './js/firebaseConfig.js';
+              
+              document.addEventListener("DOMContentLoaded", () => {
+                  // Khi trang được tải, lắng nghe sự kiện cập nhật dữ liệu từ Firebase
+                  onValueData((data) => {
+                      // Lấy giá trị nhiệt độ mới nhất từ dữ liệu Firebase
+                      // const temperature = data[Object.keys(data)[Object.keys(data).length - 1]].temperature;
+                      const temperature = data.temperature;
+                      // Cập nhật giá trị nhiệt độ vào phần tử HTML
+                      document.getElementById('temperature1').innerText = temperature + '°C';
+                  });
+              });
+            </script>
+
+            <!-- End Customers Card -->
+            
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">PM 2.5</h5>
+                    <div id="radialBarChart1"></div>
+                    <!-- Script for rendering Radial Bar Chart 1 -->
+                    <script type = "module">
+                      import {app, onValueData} from './js/firebaseConfig.js';
+                      document.addEventListener("DOMContentLoaded", () => {
+                        const chart = new ApexCharts(document.querySelector("#radialBarChart1"), {
+                          series: [0],
+                          chart: {
+                            height: 250,
+                            type: 'radialBar',
+                            toolbar: { show: true },
+                            animations: {
+                              enabled: true,
+                              easing: "easeinout",
+                              dynamicAnimation: {
+                                enabled: true,
+                                speed: 1000,
+                              }
+                            }
+                          },
+                          plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'Total',
+                                  formatter: function(w) {
+                                    return 0;
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          colors: ['#FF0000']
+                        });
+                        chart.render();
+                        onValueData((data) => {
+                          const dust = data.dust;
+                          let color = '#FF0000'; // Màu mặc định
+                          // Thay đổi màu dựa trên giá trị của dust
+                          if (dust >= 0 && dust <= 12) {
+                              color = '#198754'; // Màu xanh lá
+                          } else if (dust >= 12 && dust < 35.5) {
+                              color = '#ffc107'; // Màu vàng
+                          }
+                          else if (dust >= 35.5 && dust < 55.5) {
+                            color = '#fd7e14'; // Màu cam
+                          }
+                          else if (dust >= 55.5 && dust < 150.5) {
+                            color = '#dc3545'; // Màu đỏ
+                          }
+                          else if (dust >= 150.5 && dust < 250.5) {
+                            color = '#d63384'; // Màu tím
+                          }
+                          else if (dust >= 250.5) {
+                            color = '#a44910'; // Màu đỏ
+                          }
+                          chart.updateOptions({
+                              series: [dust / 5],
+                              colors: [color], // Cập nhật màu mới
+                              plotOptions: {
+                                  radialBar: {
+                                      dataLabels: {
+                                          name: { fontSize: '22px' },
+                                          value: { fontSize: '16px' },
+                                          total: {
+                                              show: true,
+                                              label: 'µg/m³',
+                                              formatter: function(w) {
+                                                  return dust;
+                                              },
+                                          }
+                                      }
+                                  }
+                              }
+                          });
+                      })
+                  });
+                    </script>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">MQ135</h5>
+                    <div id="radialBarChart2"></div>
+                    <!-- Script for rendering Radial Bar Chart 2 -->
+                    <script type = "module">
+                      import {app, onValueData} from './js/firebaseConfig.js';
+                      document.addEventListener("DOMContentLoaded", () => {
+                        const chart = new ApexCharts(document.querySelector("#radialBarChart2"), {
+                          series: [0],
+                          chart: {
+                            height: 250,
+                            type: 'radialBar',
+                            toolbar: { show: true },
+                            animations: {
+                              enabled: true,
+                              easing: "easeinout",
+                              dynamicAnimation: {
+                                enabled: true,
+                                speed: 1000,
+                              }
+                            }
+                          },
+                          plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'Total',
+                                  formatter: function(w) {
+                                    return 0;
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          colors: ['#8B322C']
+                        });
+                        chart.render();
+                        onValueData((data) => {
+                          const ppm = data.ppm;
+                          let color = '#FF0000'; // Màu mặc định
+                          // Thay đổi màu dựa trên giá trị của dust
+                          if (ppm >= 0 && ppm <= 50) {
+                              color = '#198754'; // Màu xanh lá
+                          } else if (ppm > 50 && ppm <= 100) {
+                              color = '#ffc107'; // Màu vàng
+                          }
+                          else if (ppm > 100 && ppm <= 150) {
+                            color = '#fd7e14'; // Màu cam
+                          }
+                          else if (ppm > 150 && ppm <= 200) {
+                            color = '#dc3545'; // Màu đỏ
+                          }
+                          else if (ppm > 200 && ppm <= 300) {
+                            color = '#d63384'; // Màu tím
+                          }
+                          else if (ppm > 300) {
+                            color = '#a44910'; // Màu đỏ
+                          }
+                          chart.updateOptions({
+                              series: [ppm/10],
+                              colors: [color], // Cập nhật màu mới
+                              plotOptions: {
+                                  radialBar: {
+                                      dataLabels: {
+                                          name: { fontSize: '22px' },
+                                          value: { fontSize: '16px' },
+                                          total: {
+                                              show: true,
+                                              label: 'ppm',
+                                              formatter: function(w) {
+                                                  return ppm;
+                                              },
+                                          }
+                                      }
+                                  }
+                              }
+                          });
+                      })
+                  });
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">TDS</h5>
+                    <div id="radialBarChart3"></div>
+                    <!-- Script for rendering Radial Bar Chart 3 -->
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new ApexCharts(document.querySelector("#radialBarChart3"), {
+                          series: [65],
+                          chart: {
+                            height: 250,
+                            type: 'radialBar',
+                            toolbar: { show: true }
+                          },
+                          plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'ppm',
+                                  formatter: function(w) {
+                                    return 299;
+                                  }
+                                }
+                              }
+                            }
+                          },
+                        }).render();
+                      });
+                    </script>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Humidity</h5>
+                    <div id="radialBarChart4"></div>
+                    <!-- Script for rendering Radial Bar Chart 4 -->
+                    <script type = "module">
+                      import {app, onValueData} from './js/firebaseConfig.js';
+                      document.addEventListener("DOMContentLoaded", () => {
+                        const chart = new ApexCharts(document.querySelector("#radialBarChart4"), {
+                          series: [0],
+                          chart: {
+                            height: 250,
+                            type: 'radialBar',
+                            toolbar: { show: true },
+                            animations: {
+                              enabled: true,
+                              easing: "easeinout",
+                              dynamicAnimation: {
+                                enabled: true,
+                                speed: 1000,
+                              }
+                            }
+                          },
+                          plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: 'Total',
+                                  formatter: function(w) {
+                                    return 0;
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          colors: ['#10439F']
+                        });
+                        chart.render();
+                        onValueData((data) => {
+                          // const humidity = data[Object.keys(data)[Object.keys(data).length - 1]].humidity;
+                          const humidity = data.humidity;
+                          chart.updateOptions({
+                            series: [humidity],
+                            plotOptions: {
+                            radialBar: {
+                              dataLabels: {
+                                name: { fontSize: '22px' },
+                                value: { fontSize: '16px' },
+                                total: {
+                                  show: true,
+                                  label: '%',
+                                  formatter: function(w) {
+                                    return humidity;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                          });
+                        })
+                      });
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+                  
+        <!-- REPORT CHART 1-->
+        <div class="col-12">
+          <div class="card mb-3">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+                <li><a class="dropdown-item" href="#" id="chart1_24h">24 hours</a></li>
+                <li><a class="dropdown-item" href="#" id="chart1_7days">7 days</a></li>
+                <li><a class="dropdown-item" href="#" id="chart1_30days">30 days</a></li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Reports <span>/Today</span></h5>
+              <!-- Line Chart -->
+              <div id="reportsChart1"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- REPORT CHART 2-->
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+                <li><a class="dropdown-item" href="#" id="chart2_24h">24 hours</a></li>
+                <li><a class="dropdown-item" href="#" id="chart2_7days">7 days</a></li>
+                <li><a class="dropdown-item" href="#" id="chart2_30days">30 days</a></li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Reports <span>/Today</span></h5>
+              <!-- Line Chart -->
+              <div id="reportsChart2"></div>
+            </div>
+          </div>
+        </div>
+
+            <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Notification <span>| Today</span></h5>
+
+                  <table class="table table-borderless datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row"><a href="#">#2457</a></th>
+                        <td>Brandon Jacob</td>
+                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
+                        <td>$64</td>
+                        <td><span class="badge bg-success">Approved</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2147</a></th>
+                        <td>Bridie Kessler</td>
+                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
+                        <td>$47</td>
+                        <td><span class="badge bg-warning">Pending</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2049</a></th>
+                        <td>Ashleigh Langosh</td>
+                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                        <td>$147</td>
+                        <td><span class="badge bg-success">Approved</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <td>Angus Grady</td>
+                        <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
+                        <td>$67</td>
+                        <td><span class="badge bg-danger">Rejected</span></td>
+                      </tr>
+                      <tr>
+                        <th scope="row"><a href="#">#2644</a></th>
+                        <td>Raheem Lehner</td>
+                        <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                        <td>$165</td>
+                        <td><span class="badge bg-success">Approved</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+            </div><!-- End Recent Sales -->
+          </div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+          
+          <!-- Website Traffic -->
+          <div class="card">
+            <div class="card-body pb-3">
+              <h5 class="card-title">LIVE AQI INDEX <span>| Today</span></h5>
+
+              <div class="card-aqi1" style="display: flex;">
+                <div class="ic-face custom-image-size">
+                    <img src="" alt="good" id="ic-face-image"> 
+                </div>
+                <div class="info1" style="display: flex; flex-direction: column; align-items: center;">
+                    <span class="aqi-info1">AQI</span>
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <span id="mq135" class="aqi-info1"></span>
+                    </div>
+                </div>
+                <h5 class="card-title1">Air pollution level</h5>
+                <span id="result" class="result-val1">GOOD</span>
+                <span class="index-val1">Pm 2.5| <span id="pm" class="pm-value"></span> µg/m³</span>
+            </div>
+              
+              <div class="card-aqi2"  style="display: flex;">
+                <div class="ic-face custom-image-size">
+                  <img src="/img/ic-face-yellow.svg" alt="good"> 
+                </div>
+
+                <div class="info1" style="display: flex; flex-direction: column; align-items: center;"> 
+                  <span class="aqi-info2"> AQI </span>
+                  <div style="display: flex; align-items: center; justify-content: center;">
+                    <span id="tds" class="aqi-info2"></span>
+                  </div>
+                </div>
+                <h5 class="card-title1">Water pollution level</h5>
+                  <span id="result" class="result-val2">VERY UNHEALTHY</span>
+                <!-- <span class="index-val2">TDS| 22.5 ppm</span> -->
+                <span class="index-val2">TDS| <span id="tds1" class="pm-value"></span> ppm</span>
+              </div>
+              
+            </div>
+          </div>
+          <script type="module">
+            // Import hàm từ tệp firebaseConfig.js
+            import {app, onValueData} from './js/firebaseConfig.js';
+            
+            // Hàm để giới hạn độ dài của nội dung và hiển thị dấu "..." khi vượt quá 10 kí tự
+            function limitTextContent(element, maxLength) {
+                const text = element.textContent;
+                if (text.length > maxLength) {
+                    element.textContent = text.slice(0, maxLength) + '...';
+                }
+            }       
+
+            document.addEventListener("DOMContentLoaded", () => {
+                // Khi trang được tải, lắng nghe sự kiện cập nhật dữ liệu từ Firebase
+                onValueData((data) => {
+                    const mq135 = data.ppm;
+                    const pm = data.dust;
+                    const tds = data.humidity;
+                    // Cập nhật giá trị vào phần tử HTML
+                    document.getElementById('mq135').innerText = mq135;
+                    document.getElementById('pm').innerText = pm;
+                    document.getElementById('tds').innerText = tds;
+                    document.getElementById('tds1').innerText = tds;
+        
+                    // Thực hiện các thay đổi dựa trên giá trị mới
+                    const mq135Value = parseFloat(mq135);
+                    const tdsValue = parseFloat(tds);
+
+                    const resultVal1 = document.querySelector('.result-val1');
+                    const cardAqi1 = document.querySelector('.card-aqi1');
+                    const icFaceImage1 = document.querySelector('.card-aqi1 .ic-face img');
+
+                    const resultVal2 = document.querySelector('.result-val2');
+                    const cardAqi2 = document.querySelector('.card-aqi2');
+                    const icFaceImage2 = document.querySelector('.card-aqi2 .ic-face img');
+        
+                    // Thay đổi màu của card-aqi1, result-val1 và hình ảnh trong ic-face dựa trên giá trị của aqi-info1
+                    if (mq135Value >= 0 && mq135Value <= 50) {
+                        cardAqi1.style.backgroundColor = '#65B741';
+                        resultVal1.textContent = 'GOOD';
+                        icFaceImage1.src = '/img/ic-face-green.svg'; // Thay đổi hình ảnh
+                    } else if (mq135Value > 50 && mq135Value <= 100) {
+                        cardAqi1.style.backgroundColor = '#F3CA52';
+                        resultVal1.textContent = 'MODERATE';
+                        icFaceImage1.src = '/img/ic-face-yellow.svg'; // Thay đổi hình ảnh
+                    } else if (mq135Value > 100 && mq135Value <= 150) {
+                        cardAqi1.style.backgroundColor = '#F6995C';
+                        resultVal1.textContent = 'UNHEALTHY FOR SENSITIVE GROUP';
+                        icFaceImage1.src = '/img/ic-face-orange.svg'; // Thay đổi hình ảnh
+                    } else if (mq135Value > 150 && mq135Value <= 200) {
+                        cardAqi1.style.backgroundColor = '#F55050';
+                        resultVal1.textContent = 'UNHEALTHY';
+                        icFaceImage1.src = '/img/ic-face-red.svg'; // Thay đổi hình ảnh
+                    } else if (mq135Value > 200 && mq135Value <= 300) {
+                        cardAqi1.style.backgroundColor = '#D862BC';
+                        resultVal1.textContent = 'VERY UNHEALTHY';
+                        icFaceImage1.src = '/img/ic-face-purple.svg'; // Thay đổi hình ảnh
+                    } else if (mq135Value > 300) {
+                        cardAqi1.style.backgroundColor = '#AA5656';
+                        resultVal1.textContent = 'HAZADOUS';
+                        icFaceImage1.src = '/img/ic-face-maroon.svg'; // Thay đổi hình ảnh
+                    }
+
+                    // Thay đổi màu của card-aqi2, result-val2 và hình ảnh trong ic-face2 dựa trên giá trị của tds
+                      if (tdsValue >= 0 && tdsValue <= 50) {
+                        cardAqi2.style.backgroundColor = '#7BC9FF';
+                        resultVal2.textContent = 'LACKS ESSENTIAL MINERALS';
+                        icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    } else if (tdsValue > 50 && tdsValue <= 150) {
+                        cardAqi2.style.backgroundColor = '#22a0fb';
+                        resultVal2.textContent = 'ACCEPTABLE LEVEL';
+                        icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+                      else if (tdsValue > 150 && tdsValue <= 300) {
+                        cardAqi2.style.backgroundColor = '#0052a5';
+                        resultVal2.textContent = 'EXCELLENT';
+                        icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+                      else if (tdsValue > 300 && tdsValue <= 500) {
+                        cardAqi2.style.backgroundColor = '#D862BC';
+                        resultVal2.textContent = 'GOOD';
+                        icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+                    else if (tdsValue > 500 && tdsValue <= 900) {
+                      cardAqi2.style.backgroundColor = '#F3CA52';
+                      resultVal2.textContent = 'FAIR';
+                      icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+                    else if (tdsValue > 900 && tdsValue <= 1200) {
+                      cardAqi2.style.backgroundColor = '#ff7f0e';
+                      resultVal2.textContent = 'POOR';
+                      icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+                    else if (tdsValue > 1200) {
+                      cardAqi2.style.backgroundColor = '#F55050';
+                      resultVal2.textContent = 'UNACCEPTABLE';
+                      icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
+                    }
+
+                    // Giới hạn độ dài của resultVal và hiển thị dấu "..." khi vượt quá 10 kí tự
+                    limitTextContent(resultVal1, 9);
+                    limitTextContent(resultVal2, 9);
+                });
+            });            
+        </script>
+          <!-- End Website Traffic -->
+
+          <!-- AQI VALUES  -->
+          <!-- Recent Activity -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">AQI <span>| Air Quality Index</span></h5>
+
+              <div class="activity">
+                
+                <div class="activity-item d-flex">
+                  <div class="activite-label">0</div>
+                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                  <div class="activity-content bg-success text-light d-inline-block" style="width: 300px; ">
+                    GOOD
+                  </div>                 
+                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                  <div class="activite-label">0</div>
+                </div><!-- End activity item-->
+                
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">50</div>
+                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                  <div class="activity-content bg-warning text-light d-inline-block" style="width: 300px;">
+                    MODERATE
+                  </div>
+                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                  <div class="activite-label">12</div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">100</div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #ff7f0e;"></i>
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #f68940;">
+                    UNHEALTHY FOR SENSITIVE GROUP
+                  </div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #ff7f0e;"></i>
+                  <div class="activite-label">35.5</div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">150</div>
+                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                  <div class="activity-content bg-danger text-light d-inline-block" style="width: 300px;">
+                    UNHEALTHY
+                  </div>
+                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                  <div class="activite-label">55.5</div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">200</div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #D862BC;"></i>
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #D862BC;">
+                   VERY UNHEALTHY
+                  </div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #D862BC;"></i>
+                  <div class="activite-label">150.5</div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">300</div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #a44910;"></i>
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #a44910;">
+                    HAZADOUS
+                   </div>
+                   <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #a44910;"></i>
+                   <div class="activite-label">250.5</div>
+                </div><!-- End activity item-->
+                  <div class="activity-content"></div>              
+              </div>
+            </div>
+            <div class="activite-labels">
+              <div class="activite-label1">ppm</div>
+              <div class="activite-label2">µg/m³</div>
+          </div>
+          </div><!-- End Recent Activity -->
+
+          <!-- TDS VALUES -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">TDS <span>| Total Dissolved Solids</span></h5>
+
+              <div class="activity">
+                
+                <div class="activity-item d-flex">
+                  <div class="activite-label">0</div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #7BC9FF;"></i>
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #7BC9FF">
+                    LACKS ESSENTIAL MINERALS
+                  </div>
+                </div><!-- End activity item-->
+                
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">50</div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #22a0fb;"></i>
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #22a0fb">
+                    ACCEPTABLE LEVEL
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">150</div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #0052a5;"></i>
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #0052a5;">
+                    EXCELLENT
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">300</div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start'  style="color: #D862BC;"></i>
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #D862BC;">
+                    GOOD
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">500</div>
+                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                  <div class="activity-content bg-warning text-light d-inline-block" style="width: 300px;">
+                  FAIR
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">900</div>
+                  <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #ff7f0e;"></i>
+                  <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #ff7f0e;">
+                    POOR
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">1200</div>
+                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                  <div class="activity-content bg-danger text-light d-inline-block" style="width: 300px;">
+                    UNACCEPTABLE
+                  </div>
+                </div><!-- End activity item-->
+
+                <div class="activity-item d-flex">
+                  <div class="activite-label">PPM</div>
+                  <i class='activity-badge text-muted align-self-start'></i>
+                  <div class="activity-content"> 
+                  </div>
+                </div><!-- End activity item-->
+              </div>
+            </div>
+          </div><!-- End Recent Activity -->
+
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Group 14</span></strong>. All Rights Reserved
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Hàm để cập nhật thời gian thực tế -->
+  <script>
+    const realTimeH6 = document.getElementById('real-time');
+    function updateRealTime() {
+      const currentTime = new Date();
+      const hours = currentTime.getHours();
+      const minutes = currentTime.getMinutes();
+      const formattedTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
+      realTimeH6.textContent = formattedTime;
+    }
+      setInterval(updateRealTime, 1000);
+    updateRealTime();
+  </script>
+
+
+  <!-- Vendor JS Files -->
+  <script src="vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/chart.js/chart.umd.js"></script>
+  <script src="vendor/echarts/echarts.min.js"></script>
+  <script src="vendor/quill/quill.min.js"></script>
+  <script src="vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="vendor/tinymce/tinymce.min.js"></script>
+  <script src="vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/js/main.js"></script>
+
+  <!-- Liên kết với tệp chart.js -->
+  <script type="module" src="/js/chart.js"></script>
+
+  <link type="text/css" href="css/style.css" rel="stylesheet" />
+
+</body>
+
+</html>

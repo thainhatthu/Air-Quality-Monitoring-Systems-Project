@@ -1,0 +1,29 @@
+currentdata:
+	<user_id>:
+		Humidity: 60
+		Temperature: 32
+analysis:
+	<user_id>:
+		1/1/2024:
+			0h:
+				Humidity: 60
+				Temperature: 32
+				Sample: 140
+			1h:
+				Humidity: 50
+				Temperature: 28
+				Sample: 123
+			...
+			23h:
+				...
+		2/1/2024:
+			...
+		...
+users:
+	<user_id>:
+    active: true
+    sendMail: true
+    email: "abc@email.com"
+	...
+
+
