@@ -199,7 +199,7 @@ float tdsRead() {
       // read the analog value more stable by the median filtering algorithm, and convert to voltage value
       averageVoltage = getMedianNum(analogBufferTemp, SCOUNT) * (float)VREF / 4096.0;
 
-      //temperature compensation formula: fFinalResult(25^C) = fFinalResult(current)/(1.0+0.02*(fTP-25.0));
+      //temperature compensation formula: FinalResult(25^C) = fFinalResult(current)/(1.0+0.02*(fTP-25.0));
       float compensationCoefficient = 1.0 + 0.02 * (dhtRead().temperature - 25.0);
       //temperature compensation
       float compensationVoltage = averageVoltage / compensationCoefficient;
