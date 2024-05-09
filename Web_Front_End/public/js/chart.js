@@ -287,7 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Tạo mảng chứa timestamp cho mỗi giờ trong 24 giờ trước đó
     const timestamps = Object.keys(data);
     const seriesData = Object.values(data);
-    //const tds = seriesData.map(item => item.tds);
+    const tds = seriesData.map(item => item.tds);
     const hum = seriesData.map(item => item.humidity);
     const temp = seriesData.map(item => item.temperature);
 
@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chart.updateOptions({
       series: [{
         name: 'TDS',
-        data: [15, 11, 10, 18, 1, 2, 1]
+        data: tds
       }, {
         name: 'Humidity',
         data: hum
@@ -334,7 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chart.updateOptions({
       series: [{
         name: 'TDS',
-        data: [15, 11, 10, 18, 1, 2, 1]
+        data: Object.values(averagedData).map(item => item.tds)
       }, {
         name: 'Humidity',
         data: Object.values(averagedData).map(item => item.humidity)
@@ -379,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chart.updateOptions({
       series: [{
         name: 'TDS',
-        data: [15, 11, 10, 18, 1, 2, 1]
+        data: Object.values(averagedData).map(item => item.tds)
       }, {
         name: 'Humidity',
         data: Object.values(averagedData).map(item => item.humidity)

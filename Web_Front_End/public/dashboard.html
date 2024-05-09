@@ -422,14 +422,23 @@
                     <h5 class="card-title">TDS</h5>
                     <div id="radialBarChart3"></div>
                     <!-- Script for rendering Radial Bar Chart 3 -->
-                    <script>
+                    <script type = "module">
+                      import {app, onValueData} from './js/firebaseConfig.js';
                       document.addEventListener("DOMContentLoaded", () => {
-                        new ApexCharts(document.querySelector("#radialBarChart3"), {
-                          series: [65],
+                        const chart = new ApexCharts(document.querySelector("#radialBarChart3"), {
+                          series: [0],
                           chart: {
                             height: 250,
                             type: 'radialBar',
-                            toolbar: { show: true }
+                            toolbar: { show: true },
+                            animations: {
+                              enabled: true,
+                              easing: "easeinout",
+                              dynamicAnimation: {
+                                enabled: true,
+                                speed: 1000,
+                              }
+                            }
                           },
                           plotOptions: {
                             radialBar: {
@@ -438,15 +447,55 @@
                                 value: { fontSize: '16px' },
                                 total: {
                                   show: true,
-                                  label: 'ppm',
+                                  label: 'Total',
                                   formatter: function(w) {
-                                    return 299;
+                                    return 0;
                                   }
                                 }
                               }
                             }
                           },
-                        }).render();
+                        });
+                        chart.render();
+                        onValueData((data) => {
+                          const tds = data.tds;
+                          let color = '#FF0000'; // Màu mặc định
+                          // Thay đổi màu dựa trên giá trị của dust
+                          if (tds >= 0 && tds <= 150) {
+                              color = '#198754'; // Màu xanh lá
+                          } else if (tds > 150 && tds <= 250) {
+                              color = '#ffc107'; // Màu vàng
+                          }
+                          else if (tds > 250 && tds <= 300) {
+                            color = '#fd7e14'; // Màu cam
+                          }
+                          else if (tds > 300 && tds <= 500) {
+                            color = '#dc3545'; // Màu đỏ
+                          }
+                          else if (tds > 500) {
+                            color = '#d63384'; // Màu tím
+                          }
+
+                          chart.updateOptions({
+                              series: [tds/6],
+                              colors: [color], // Cập nhật màu mới
+                              plotOptions: {
+                                  radialBar: {
+                                      dataLabels: {
+                                          name: { fontSize: '22px' },
+                                          value: { fontSize: '16px' },
+                                          total: {
+                                              show: true,
+                                              label: 'ppm',
+                                              formatter: function(w) {
+                                                  return tds;
+                                              },
+                                          }
+                                      }
+                                  }
+                              }
+                          });
+                      })
                       });
                     </script>
                   </div>

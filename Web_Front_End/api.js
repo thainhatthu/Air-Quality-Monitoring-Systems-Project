@@ -72,6 +72,7 @@ module.exports = (app) => {
       data.humidity = parseFloat(data.humidity).round(2);
       data.dust = parseFloat(data.dust).round(2);
       data.ppm = parseFloat(data.ppm).round(2);
+      data.tds = parseFloat(data.tds).round(2);
       console.log(data);
 
       await firebaseHandler.writeData(data, user_id, true);
