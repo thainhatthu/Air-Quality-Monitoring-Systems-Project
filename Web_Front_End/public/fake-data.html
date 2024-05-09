@@ -27,10 +27,10 @@
         }
       };
       xhr.send(JSON.stringify({
-        temperature: `${getRndInteger(20, 40)}`,
-        humidity: `${getRndInteger(30, 90)}`,
+        temperature: `${getRndInteger(25, 45)}`,
+        humidity: `${getRndInteger(30, 150)}`,
         ppm: `${getRndInteger(100, 500)}`,
-        dust: `${getRndInteger(50, 200)}`,
+        dust: `${getRndInteger(50, 300)}`,
       }));
     }, 2000);
     
