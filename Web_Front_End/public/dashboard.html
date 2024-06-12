@@ -21,10 +21,7 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="vendor/simple-datatables/style.css" rel="stylesheet">
+
 
   <!-- JS File -->
 
@@ -57,88 +54,11 @@
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-
         <li class="nav-item d-block d-lg-none">
           <a class="nav-link nav-icon search-bar-toggle " href="#">
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -148,7 +68,7 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Nguyễn Thị Thủm</h6>
+              <h6>ID: 12345</h6>
               <span>Web Designer</span>
             </li>
             <li>
@@ -162,22 +82,11 @@
               </a>
             </li>
             <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
               <a class="dropdown-item d-flex align-items-center" href="/logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
             </li>
-
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
 
@@ -513,14 +422,23 @@
                     <h5 class="card-title">TDS</h5>
                     <div id="radialBarChart3"></div>
                     <!-- Script for rendering Radial Bar Chart 3 -->
-                    <script>
+                    <script type = "module">
+                      import {app, onValueData} from './js/firebaseConfig.js';
                       document.addEventListener("DOMContentLoaded", () => {
-                        new ApexCharts(document.querySelector("#radialBarChart3"), {
-                          series: [65],
+                        const chart = new ApexCharts(document.querySelector("#radialBarChart3"), {
+                          series: [0],
                           chart: {
                             height: 250,
                             type: 'radialBar',
-                            toolbar: { show: true }
+                            toolbar: { show: true },
+                            animations: {
+                              enabled: true,
+                              easing: "easeinout",
+                              dynamicAnimation: {
+                                enabled: true,
+                                speed: 1000,
+                              }
+                            }
                           },
                           plotOptions: {
                             radialBar: {
@@ -529,15 +447,55 @@
                                 value: { fontSize: '16px' },
                                 total: {
                                   show: true,
-                                  label: 'ppm',
+                                  label: 'Total',
                                   formatter: function(w) {
-                                    return 299;
+                                    return 0;
                                   }
                                 }
                               }
                             }
                           },
-                        }).render();
+                        });
+                        chart.render();
+                        onValueData((data) => {
+                          const tds = data.tds;
+                          let color = '#FF0000'; // Màu mặc định
+                          // Thay đổi màu dựa trên giá trị của dust
+                          if (tds >= 0 && tds <= 150) {
+                              color = '#198754'; // Màu xanh lá
+                          } else if (tds > 150 && tds <= 250) {
+                              color = '#ffc107'; // Màu vàng
+                          }
+                          else if (tds > 250 && tds <= 300) {
+                            color = '#fd7e14'; // Màu cam
+                          }
+                          else if (tds > 300 && tds <= 500) {
+                            color = '#dc3545'; // Màu đỏ
+                          }
+                          else if (tds > 500) {
+                            color = '#d63384'; // Màu tím
+                          }
+
+                          chart.updateOptions({
+                              series: [tds/6],
+                              colors: [color], // Cập nhật màu mới
+                              plotOptions: {
+                                  radialBar: {
+                                      dataLabels: {
+                                          name: { fontSize: '22px' },
+                                          value: { fontSize: '16px' },
+                                          total: {
+                                              show: true,
+                                              label: 'ppm',
+                                              formatter: function(w) {
+                                                  return tds;
+                                              },
+                                          }
+                                      }
+                                  }
+                              }
+                          });
+                      })
                       });
                     </script>
                   </div>
@@ -659,79 +617,6 @@
             </div>
           </div>
         </div>
-
-            <div class="col-12">
-              <div class="card recent-sales overflow-auto">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Notification <span>| Today</span></h5>
-
-                  <table class="table table-borderless datatable">
-                    <thead>
-                      <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#">#2457</a></th>
-                        <td>Brandon Jacob</td>
-                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                        <td>$64</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Bridie Kessler</td>
-                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                        <td>$47</td>
-                        <td><span class="badge bg-warning">Pending</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2049</a></th>
-                        <td>Ashleigh Langosh</td>
-                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                        <td>$147</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Angus Grady</td>
-                        <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                        <td>$67</td>
-                        <td><span class="badge bg-danger">Rejected</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Raheem Lehner</td>
-                        <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                        <td>$165</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </div>
-
-              </div>
-            </div><!-- End Recent Sales -->
           </div>
         </div><!-- End Left side columns -->
 
@@ -845,32 +730,32 @@
                         cardAqi2.style.backgroundColor = '#7BC9FF';
                         resultVal2.textContent = 'LACKS ESSENTIAL MINERALS';
                         icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
-                    } else if (tdsValue > 50 && tdsValue <= 150) {
+                    } else if (tdsValue > 50 && tdsValue <= 100) {
                         cardAqi2.style.backgroundColor = '#22a0fb';
                         resultVal2.textContent = 'ACCEPTABLE LEVEL';
                         icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
                     }
-                      else if (tdsValue > 150 && tdsValue <= 300) {
+                      else if (tdsValue > 100 && tdsValue <= 200) {
                         cardAqi2.style.backgroundColor = '#0052a5';
                         resultVal2.textContent = 'EXCELLENT';
                         icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
                     }
-                      else if (tdsValue > 300 && tdsValue <= 500) {
+                      else if (tdsValue > 200 && tdsValue <= 300) {
                         cardAqi2.style.backgroundColor = '#D862BC';
                         resultVal2.textContent = 'GOOD';
                         icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
                     }
-                    else if (tdsValue > 500 && tdsValue <= 900) {
+                    else if (tdsValue > 300 && tdsValue <= 400) {
                       cardAqi2.style.backgroundColor = '#F3CA52';
                       resultVal2.textContent = 'FAIR';
                       icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
                     }
-                    else if (tdsValue > 900 && tdsValue <= 1200) {
+                    else if (tdsValue > 400 && tdsValue <= 500) {
                       cardAqi2.style.backgroundColor = '#ff7f0e';
                       resultVal2.textContent = 'POOR';
                       icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
                     }
-                    else if (tdsValue > 1200) {
+                    else if (tdsValue > 500) {
                       cardAqi2.style.backgroundColor = '#F55050';
                       resultVal2.textContent = 'UNACCEPTABLE';
                       icFaceImage2.src = '/img/water.png'; // Thay đổi hình ảnh
@@ -986,7 +871,7 @@
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label">150</div>
+                  <div class="activite-label">100</div>
                   <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #0052a5;"></i>
                   <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #0052a5;">
                     EXCELLENT
@@ -994,7 +879,7 @@
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label">300</div>
+                  <div class="activite-label">200</div>
                   <i class='bi bi-circle-fill activity-badge align-self-start'  style="color: #D862BC;"></i>
                   <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #D862BC;">
                     GOOD
@@ -1002,7 +887,7 @@
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label">500</div>
+                  <div class="activite-label">300</div>
                   <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
                   <div class="activity-content bg-warning text-light d-inline-block" style="width: 300px;">
                   FAIR
@@ -1010,7 +895,7 @@
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label">900</div>
+                  <div class="activite-label">400</div>
                   <i class='bi bi-circle-fill activity-badge align-self-start' style="color: #ff7f0e;"></i>
                   <div class="activity-content text-light d-inline-block" style="width: 300px; background-color: #ff7f0e;">
                     POOR
@@ -1018,7 +903,7 @@
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label">1200</div>
+                  <div class="activite-label">500</div>
                   <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
                   <div class="activity-content bg-danger text-light d-inline-block" style="width: 300px;">
                     UNACCEPTABLE
@@ -1070,10 +955,6 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/chart.js/chart.umd.js"></script>
   <script src="vendor/echarts/echarts.min.js"></script>
-  <script src="vendor/quill/quill.min.js"></script>
-  <script src="vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="vendor/tinymce/tinymce.min.js"></script>
-  <script src="vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>
